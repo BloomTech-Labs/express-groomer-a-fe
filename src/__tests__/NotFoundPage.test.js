@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { NotFoundPage } from '../components/pages/NotFound';
+import NotFoundPage from '../components/pages/NotFoundPage';
 
 describe('Loading Common Component', () => {
   test('it should mount a div based on props', () => {
