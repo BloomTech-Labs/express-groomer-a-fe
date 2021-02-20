@@ -1,6 +1,6 @@
 import React from 'react';
 import { PopupWidget } from 'react-calendly';
-import '../pages/SearchResults/GroomerPublicProfile.scss'
+import '../search/SearchResults/GroomerPublicProfile.scss';
 
 // this component will render the calendly scheduler
 // it needs to be passed a schedule link as props

@@ -1,0 +1,60 @@
+// .hours-container{
+//     //width: 300px;
+//     //min-height: 300px;
+//     //border: 1px solid black;
+//     //margin-bottom: 10px;
+//     //margin-left: 80px;
+
+//     p{
+//         //text-align: center;
+//     }
+// }
+
+.day-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+}
+
+.form-top {
+  display: flex;
+}
+
+.form-panel {
+  width: 50%;
+}
+
+.services-container {
+  width: 300px;
+  min-height: 150px;
+  border: 1px solid black;
+  margin-bottom: 10px;
+  margin-left: 80px;
+  padding: 10px;
+
+  div {
+    width: 120px;
+    display: flex;
+  }
+}
+
+.services-list {
+  margin-left: 40px;
+}
+
+.services-edit {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.close-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+
+.form-button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
