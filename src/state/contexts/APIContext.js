@@ -56,7 +56,7 @@ const APIProvider = ({ children }) => {
         setGroomerServices(res.data);
       })
       .catch(err => {
-        console.log(err);
+        console.log('Groomer services by ID error', err);
       });
   };
 
@@ -67,7 +67,7 @@ const APIProvider = ({ children }) => {
         setAllGroomers(res.data);
       })
       .catch(err => {
-        console.log('Error', err);
+        console.log('Get Groomers Error', err);
       });
   };
 
@@ -91,6 +91,7 @@ const APIProvider = ({ children }) => {
       })
       .then(res => {
         if (res.data) {
+          console.log('successful logged in groomer profile data', res.data);
           setGroomerInfo(res.data);
           setIsRegistered(true);
         }
@@ -291,7 +292,7 @@ const APIProvider = ({ children }) => {
         setServices(res.data);
       })
       .catch(err => {
-        console.log(err);
+        console.log('Get services error', err);
       });
   };
 
