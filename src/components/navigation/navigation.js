@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import { Link } from 'react-router-dom';
-import './nav.scss';
+import '../navigation/nav.scss';
 import 'antd/dist/antd.less';
 import styled from 'styled-components';
 
