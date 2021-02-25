@@ -5,8 +5,10 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 1rem;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 75px;
+  margin-bottom: 75px;
+  @media screen and (max-width: 600px) {
+  }
 `;
 
 export const Title = styled.div`
@@ -14,8 +16,8 @@ export const Title = styled.div`
   display: flex;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
-  @media screen and (max-width: 450px) {
-    font-size: 2.75rem;
+  @media screen and (max-width: 600px) {
+    font-size: 2rem;
     margin-top: 15px;
     margin-bottom: 0px;
   }
@@ -24,7 +26,7 @@ export const Title = styled.div`
 export const SecondTitle = styled.div`
   font-size: 2.5rem;
   font-family: 'Poppins', sans-serif;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     font-size: 1.25rem;
     margin: 5px;
     margin-bottom: 0px;
@@ -34,13 +36,13 @@ export const SecondTitle = styled.div`
 
 export const SectionOne = styled.div`
   width: 50%;
-  height: 414px;
+  height: 413px;
   padding: 20px;
   margin-top: 10px;
   display: flex;
   flex-direction: column;
   margin-right: 30px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -57,14 +59,14 @@ export const SectionTwo = styled.div`
   padding: 20px;
   margin-top: 10px;
   position: relative;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     display: none;
   }
 `;
 
 export const SectionThree = styled.div`
   width: 50%;
-  height: 414px;
+  height: 413px;
   padding: 20px;
   margin-top: 10px;
   display: flex;
@@ -133,8 +135,8 @@ export const Row = styled.div`
   flex-direction: column;
   margin-right: 10px;
   margin-left: 10px;
-  @media screen and (max-width: 450px) {
-    font-size: 1rem;
+  @media screen and (max-width: 600px) {
+    font-size: 0.8rem;
     border-radius: 10px;
     padding: 0;
     margin: 30px;
@@ -168,8 +170,8 @@ export const MediumPara = styled.div`
   font-size: 1.25rem;
   margin-top: 20px;
   margin-bottom: 30px;
-  @media screen and (max-width: 450px) {
-    font-size: 1rem;
+  @media only screen and (max-width: 600px) {
+    font-size: 0.8rem;
     margin-top: 10px;
     margin-bottom: 20px;
   }
@@ -263,8 +265,8 @@ export const FooterTitles = styled.span`
   font-size: 1.55rem;
   font-weight: 700;
   color: white;
-  @media screen and (max-width: 450px) {
-    font-size: 1rem;
+  @media screen and (max-width: 600px) {
+    font-size: 0.9rem;
     margin-top: 15px;
   }
 `;
@@ -274,8 +276,8 @@ export const FooterSect = styled.div`
   flex-direction: column;
   color: white;
   font-size: 1.1rem;
-  @media screen and (max-width: 450px) {
-    font-size: 1rem;
+  @media screen and (max-width: 600px) {
+    font-size: 0.9rem;
     margin-top: 20px;
     width: 120px;
     padding-top: 50px;
@@ -302,8 +304,8 @@ export const GroomerImg = styled.img`
 `;
 
 export const GroomerText = styled.div`
-  @media screen and (max-width: 450px) {
-    font-size: 0.9rem;
+  @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
     margin-top: -10px;
     margin-bottom: -20px;
   }

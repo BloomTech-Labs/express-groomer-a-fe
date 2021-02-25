@@ -13,7 +13,7 @@
   margin-bottom: 1rem;
   font-size: 1.5rem;
   font-family: 'Poppins', sans-serif;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     font-size: 1.2rem;
     width: 40%;
   }
@@ -57,13 +57,13 @@
   .express-logo {
     color: white;
     background-color: #1ea7fd;
-    font-size: 3.5em;
+    font-size: 3rem;
     padding: .25em;
     border-radius: 10px;
     font-family: 'Leckerli One', cursive;
-    @media screen and (max-width: 450px) {
-      font-size: 2rem;
-      width: 80%;
+    @media screen and (max-width: 600px) {
+      font-size: 1.5rem;
+      width: 70%;
     }
   }
 
