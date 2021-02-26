@@ -16,7 +16,7 @@ export const Title = styled.div`
   font-size: 4.25rem;
   display: flex;
   justify-content: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Lobster', cursive;
   @media screen and (max-width: 600px) {
     font-size: 2.75rem;
     margin-top: 15px;
@@ -205,8 +205,9 @@ export const SpacedDiv = styled.div`
   }
 `;
 export const BlueExpress = styled.span`
-  font-family: 'Leckerli One', cursive;
-  color: #1ea7fd;
+  font-family: 'Lobster', cursive;
+  color: black;
+  margin-top: -5%;
   margin-left: 5px;
   margin-right: 5px;
   @media screen and (max-width: 450px) {
@@ -215,8 +216,7 @@ export const BlueExpress = styled.span`
 `;
 
 export const Footer = styled.footer`
-  border-top: 10px solid #1ea7fd;
-  background-color: #15699e;
+  background-color: black;
   height: 265px;
   display: flex;
   justify-content: space-around;
@@ -255,7 +255,7 @@ export const Logo = styled.div`
   font-size: 4em;
   padding: 0.25em;
   border-radius: 10px;
-  font-family: 'Leckerli One', cursive;
+  font-family: 'Lobster', cursive;
   @media screen and (max-width: 600px) {
     font-size: 1.5rem;
   }
