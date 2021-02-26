@@ -8,6 +8,7 @@ export const Container = styled.div`
   margin-top: 75px;
   margin-bottom: 75px;
   @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
   }
 `;
 
@@ -17,7 +18,7 @@ export const Title = styled.div`
   justify-content: center;
   font-family: 'Poppins', sans-serif;
   @media screen and (max-width: 600px) {
-    font-size: 2rem;
+    font-size: 2.75rem;
     margin-top: 15px;
     margin-bottom: 0px;
   }
@@ -36,7 +37,7 @@ export const SecondTitle = styled.div`
 
 export const SectionOne = styled.div`
   width: 50%;
-  height: 413px;
+  height: 414px;
   padding: 20px;
   margin-top: 10px;
   display: flex;
@@ -66,13 +67,13 @@ export const SectionTwo = styled.div`
 
 export const SectionThree = styled.div`
   width: 50%;
-  height: 413px;
+  height: 414px;
   padding: 20px;
   margin-top: 10px;
   display: flex;
   flex-direction: column;
   margin-right: 30px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     display: none;
   }
 `;
@@ -82,7 +83,7 @@ export const SectionFour = styled.div`
   height: 520px;
   padding: 20px;
   margin-top: 10px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -156,7 +157,7 @@ export const HiddenRow = styled.div`
   flex-direction: column;
   margin-right: 10px;
   margin-left: 10px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     display: none;
   }
 `;
@@ -266,7 +267,7 @@ export const FooterTitles = styled.span`
   font-weight: 700;
   color: white;
   @media screen and (max-width: 600px) {
-    font-size: 0.9rem;
+    font-size: 1rem;
     margin-top: 15px;
   }
 `;
@@ -277,7 +278,7 @@ export const FooterSect = styled.div`
   color: white;
   font-size: 1.1rem;
   @media screen and (max-width: 600px) {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     margin-top: 20px;
     width: 120px;
     padding-top: 50px;
@@ -328,6 +329,9 @@ export const Poodle = styled.img`
   border-radius: 50%;
   width: 100%;
   height: auto;
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const SpacingLeft = styled.div`

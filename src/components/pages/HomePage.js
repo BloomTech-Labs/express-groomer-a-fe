@@ -53,8 +53,8 @@ const HomePage = () => {
               </MediumPara>
               <div>Changing the way you Groom.</div>
               <SpacedDiv>
-                What are you waiting for? Create an Account Now:{' '}
-                <Button>Sign Up</Button>
+                What are you waiting for? <br />
+                Create an Account Now: <Button>Sign Up</Button>
               </SpacedDiv>
             </SectionOne>
             <SectionTwo>
