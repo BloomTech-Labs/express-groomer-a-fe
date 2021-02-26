@@ -7,8 +7,12 @@ export const Container = styled.div`
   font-size: 1rem;
   margin-top: 75px;
   margin-bottom: 75px;
+
   @media screen and (max-width: 600px) {
     font-size: 0.75rem;
+  }
+  @media screen and (max-width: 1100px) and (min-width: 600px) {
+    font-size: 0.85rem;
   }
 `;
 
@@ -176,6 +180,9 @@ export const MediumPara = styled.div`
     margin-top: 10px;
     margin-bottom: 20px;
   }
+  @media screen and (max-width: 1100px) and (min-width: 600px) {
+    font-size: 1rem;
+  }
 `;
 export const Button = styled.button`
   color: white;
@@ -209,7 +216,7 @@ export const BlueExpress = styled.span`
   color: #1ea7fd;
   margin-left: 5px;
   margin-right: 5px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     margin-bottom: 0px;
   }
 `;
