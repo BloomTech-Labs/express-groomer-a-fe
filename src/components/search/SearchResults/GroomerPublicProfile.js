@@ -10,6 +10,7 @@ import { Rate } from 'antd';
 import { GroomersContext } from '../../../state/contexts/GroomersContext';
 import { APIContext } from '../../../state/contexts/APIContext';
 import CalendlyPopupWidget from '../../common/CalendlyPopupWidget';
+import ApptModal from '../../common/ApptModal';
 
 const GroomerPublicProfile = props => {
   const pathway = props.props.match.params.id;
@@ -49,6 +50,7 @@ const GroomerPublicProfile = props => {
         >
           <div className="customer-header">
             <p className="heading">{groomer.business_name}</p>
+            <ApptModal />
             <div className="rating">
               <Rate />
             </div>
