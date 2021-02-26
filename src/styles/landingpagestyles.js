@@ -200,7 +200,7 @@ export const SpacedDiv = styled.div`
   align-items: center;
   text-align: center;
   margin-top: 50px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     margin-top: 20px;
   }
 `;
@@ -221,7 +221,7 @@ export const Footer = styled.footer`
   display: flex;
   justify-content: space-around;
   position: relative;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     font-size: 1rem;
     margin-top: 15px;
     margin-bottom: 25px;
@@ -233,7 +233,7 @@ export const Footer = styled.footer`
 export const LogoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     position: absolute;
     top: 5px;
     margin-bottom: 10px;
@@ -245,7 +245,7 @@ export const SocialContainer = styled.div`
   justify-content: space-evenly;
   color: white;
   font-size: 2rem;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     font-size: 1rem;
   }
 `;
@@ -256,7 +256,7 @@ export const Logo = styled.div`
   padding: 0.25em;
   border-radius: 10px;
   font-family: 'Leckerli One', cursive;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     font-size: 1.5rem;
   }
 `;
@@ -291,7 +291,7 @@ export const Copyright = styled.div`
   color: white;
   position: absolute;
   top: 200px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     padding-top: 20px;
     font-size: 0.75rem;
   }
@@ -314,7 +314,7 @@ export const GroomerText = styled.div`
 
 export const Spacing = styled.div`
   margin-bottom: 5px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     margin-bottom: 2.5px;
   }
 `;
@@ -342,7 +342,7 @@ export const SpacingLeft = styled.div`
   font-size: 2rem;
   display: flex;
   flex-direction: row;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     font-size: 1.25rem;
     margin-top: 30px;
   }
@@ -355,7 +355,7 @@ export const SpacingRight = styled.div`
   font-size: 2rem;
   display: flex;
   flex-direction: row-reverse;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     font-size: 1.25rem;
     margin-bottom: 30px;
   }
