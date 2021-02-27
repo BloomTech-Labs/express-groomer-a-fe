@@ -9,18 +9,18 @@ import { UsersContext } from '../../state/contexts/UsersContext';
 import { APIContext } from '../../state/contexts/APIContext';
 
 const Button = styled.button`
-  background-color: white;
-  color: #1ea7fd;
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
-  padding-top: 7.5px;
-  padding-bottom: 7.5px;
   width: 170px;
+  margin-right: 6%;
+  margin-top: 2%;
+  text-align: center;
+  color: white;
+  background-color: black;
+  border: none;
 
   :hover {
     background-color: #1ea7fd;
     color: white;
+    border-radius: 10px;
   }
 `;
 
@@ -78,7 +78,7 @@ function NavBar() {
             Search
           </Link>
           <Button
-            type="primary"
+            // type="primary"
             className={'anchor'}
             onClick={() => authService.logout()}
           >
@@ -110,7 +110,7 @@ function NavBar() {
             Info
           </Link> */}
           <Button
-            type="primary"
+            // type="primary"
             className={'anchor'}
             onClick={() => authService.logout()}
           >

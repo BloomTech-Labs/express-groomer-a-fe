@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { SearchResults } from '../search/SearchResults/SearchResultsCard';
-import NoResults from '../search/SearchResults/NoResults';
+// import NoResults from '../search/SearchResults/NoResults';
 import 'antd/dist/antd.css';
 import '../../styles/search.scss';
 import { Button, Col, Input, Row } from 'antd';
@@ -67,7 +67,8 @@ const SearchPage = () => {
             return <SearchResults key={index} groomer={groomer} />;
           })
         ) : (
-          <NoResults />
+          // <NoResults />
+          <div></div>
         )}
       </div>
     </div>
