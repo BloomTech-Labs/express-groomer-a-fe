@@ -7,7 +7,12 @@ export const Container = styled.div`
   font-size: 1rem;
   margin-top: 75px;
   margin-bottom: 75px;
+
   @media screen and (max-width: 600px) {
+    font-size: 0.75rem;
+  }
+  @media screen and (max-width: 1100px) and (min-width: 600px) {
+    font-size: 0.85rem;
   }
 `;
 
@@ -15,9 +20,9 @@ export const Title = styled.div`
   font-size: 4.25rem;
   display: flex;
   justify-content: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Lobster', cursive;
   @media screen and (max-width: 600px) {
-    font-size: 2rem;
+    font-size: 2.75rem;
     margin-top: 15px;
     margin-bottom: 0px;
   }
@@ -36,7 +41,7 @@ export const SecondTitle = styled.div`
 
 export const SectionOne = styled.div`
   width: 50%;
-  height: 413px;
+  height: 414px;
   padding: 20px;
   margin-top: 10px;
   display: flex;
@@ -66,13 +71,13 @@ export const SectionTwo = styled.div`
 
 export const SectionThree = styled.div`
   width: 50%;
-  height: 413px;
+  height: 414px;
   padding: 20px;
   margin-top: 10px;
   display: flex;
   flex-direction: column;
   margin-right: 30px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     display: none;
   }
 `;
@@ -82,7 +87,7 @@ export const SectionFour = styled.div`
   height: 520px;
   padding: 20px;
   margin-top: 10px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -156,7 +161,7 @@ export const HiddenRow = styled.div`
   flex-direction: column;
   margin-right: 10px;
   margin-left: 10px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     display: none;
   }
 `;
@@ -174,6 +179,9 @@ export const MediumPara = styled.div`
     font-size: 0.8rem;
     margin-top: 10px;
     margin-bottom: 20px;
+  }
+  @media screen and (max-width: 1100px) and (min-width: 600px) {
+    font-size: 1rem;
   }
 `;
 export const Button = styled.button`
@@ -199,28 +207,28 @@ export const SpacedDiv = styled.div`
   align-items: center;
   text-align: center;
   margin-top: 50px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     margin-top: 20px;
   }
 `;
 export const BlueExpress = styled.span`
-  font-family: 'Leckerli One', cursive;
-  color: #1ea7fd;
+  font-family: 'Lobster', cursive;
+  color: black;
+  margin-top: -5%;
   margin-left: 5px;
   margin-right: 5px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     margin-bottom: 0px;
   }
 `;
 
 export const Footer = styled.footer`
-  border-top: 10px solid #1ea7fd;
-  background-color: #15699e;
+  background-color: black;
   height: 265px;
   display: flex;
   justify-content: space-around;
   position: relative;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     font-size: 1rem;
     margin-top: 15px;
     margin-bottom: 25px;
@@ -232,7 +240,7 @@ export const Footer = styled.footer`
 export const LogoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     position: absolute;
     top: 5px;
     margin-bottom: 10px;
@@ -244,7 +252,7 @@ export const SocialContainer = styled.div`
   justify-content: space-evenly;
   color: white;
   font-size: 2rem;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     font-size: 1rem;
   }
 `;
@@ -254,8 +262,8 @@ export const Logo = styled.div`
   font-size: 4em;
   padding: 0.25em;
   border-radius: 10px;
-  font-family: 'Leckerli One', cursive;
-  @media screen and (max-width: 450px) {
+  font-family: 'Lobster', cursive;
+  @media screen and (max-width: 600px) {
     font-size: 1.5rem;
   }
 `;
@@ -266,7 +274,7 @@ export const FooterTitles = styled.span`
   font-weight: 700;
   color: white;
   @media screen and (max-width: 600px) {
-    font-size: 0.9rem;
+    font-size: 1rem;
     margin-top: 15px;
   }
 `;
@@ -277,7 +285,7 @@ export const FooterSect = styled.div`
   color: white;
   font-size: 1.1rem;
   @media screen and (max-width: 600px) {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     margin-top: 20px;
     width: 120px;
     padding-top: 50px;
@@ -290,7 +298,7 @@ export const Copyright = styled.div`
   color: white;
   position: absolute;
   top: 200px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     padding-top: 20px;
     font-size: 0.75rem;
   }
@@ -313,7 +321,7 @@ export const GroomerText = styled.div`
 
 export const Spacing = styled.div`
   margin-bottom: 5px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     margin-bottom: 2.5px;
   }
 `;
@@ -328,6 +336,9 @@ export const Poodle = styled.img`
   border-radius: 50%;
   width: 100%;
   height: auto;
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const SpacingLeft = styled.div`
@@ -338,7 +349,7 @@ export const SpacingLeft = styled.div`
   font-size: 2rem;
   display: flex;
   flex-direction: row;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     font-size: 1.25rem;
     margin-top: 30px;
   }
@@ -351,7 +362,7 @@ export const SpacingRight = styled.div`
   font-size: 2rem;
   display: flex;
   flex-direction: row-reverse;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     font-size: 1.25rem;
     margin-bottom: 30px;
   }
