@@ -1,10 +1,10 @@
 import React from 'react';
 import GroomerPublicProfile from '../search/SearchResults/GroomerPublicProfile';
 
-const GroomerPublicProfilePage = () => {
+const GroomerPublicProfilePage = props => {
   return (
     <div>
-      <GroomerPublicProfile />
+      <GroomerPublicProfile props={props} />
     </div>
   );
 };

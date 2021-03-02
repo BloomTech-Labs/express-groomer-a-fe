@@ -47,7 +47,7 @@ const SearchPage = () => {
           onSearch={onSearch}
           onChange={handleChange}
           enterButton
-          placeholder="Search by city"
+          placeholder="Search By City Name"
           style={{ width: 500 }}
         />
       </div>
@@ -57,7 +57,7 @@ const SearchPage = () => {
       <Row justify={'center'} className={'map-button'}>
         <Col>
           <Button type={'primary'} onClick={() => history.push('/groomer-map')}>
-            Find Groomers Near Me
+            View The Map
           </Button>
         </Col>
       </Row>

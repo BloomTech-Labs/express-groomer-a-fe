@@ -4,15 +4,16 @@ import { UserOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import '../../profiles/GroomerProfile/groomer.css';
 import PublicServices from './GroomerPublicServices';
-import '../../search/SearchResults/GroomerPublicProfile.scss';
+import './GroomerPublicProfile.scss';
 import { Rate } from 'antd';
 // context imports
 import { GroomersContext } from '../../../state/contexts/GroomersContext';
 import { APIContext } from '../../../state/contexts/APIContext';
 import CalendlyPopupWidget from '../../common/CalendlyPopupWidget';
+import ApptModal from '../../common/ApptModal';
 
 const GroomerPublicProfile = props => {
-  const pathway = props.match.params.id;
+  const pathway = props.props.match.params.id;
   // context state
   const { groomer } = useContext(GroomersContext);
   const { getGroomerByID } = useContext(APIContext);
@@ -49,6 +50,7 @@ const GroomerPublicProfile = props => {
         >
           <div className="customer-header">
             <p className="heading">{groomer.business_name}</p>
+            <ApptModal />
             <div className="rating">
               <Rate />
             </div>
