@@ -7,8 +7,12 @@ export const Container = styled.div`
   font-size: 1rem;
   margin-top: 75px;
   margin-bottom: 75px;
+
   @media screen and (max-width: 600px) {
     font-size: 0.75rem;
+  }
+  @media screen and (max-width: 1100px) and (min-width: 600px) {
+    font-size: 0.85rem;
   }
 `;
 
@@ -16,7 +20,7 @@ export const Title = styled.div`
   font-size: 4.25rem;
   display: flex;
   justify-content: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Lobster', cursive;
   @media screen and (max-width: 600px) {
     font-size: 2.75rem;
     margin-top: 15px;
@@ -176,6 +180,9 @@ export const MediumPara = styled.div`
     margin-top: 10px;
     margin-bottom: 20px;
   }
+  @media screen and (max-width: 1100px) and (min-width: 600px) {
+    font-size: 1rem;
+  }
 `;
 export const Button = styled.button`
   color: white;
@@ -205,18 +212,18 @@ export const SpacedDiv = styled.div`
   }
 `;
 export const BlueExpress = styled.span`
-  font-family: 'Leckerli One', cursive;
-  color: #1ea7fd;
+  font-family: 'Lobster', cursive;
+  color: black;
+  margin-top: -5%;
   margin-left: 5px;
   margin-right: 5px;
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 600px) {
     margin-bottom: 0px;
   }
 `;
 
 export const Footer = styled.footer`
-  border-top: 10px solid #1ea7fd;
-  background-color: #15699e;
+  background-color: black;
   height: 265px;
   display: flex;
   justify-content: space-around;
@@ -255,7 +262,7 @@ export const Logo = styled.div`
   font-size: 4em;
   padding: 0.25em;
   border-radius: 10px;
-  font-family: 'Leckerli One', cursive;
+  font-family: 'Lobster', cursive;
   @media screen and (max-width: 600px) {
     font-size: 1.5rem;
   }

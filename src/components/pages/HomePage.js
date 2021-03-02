@@ -71,9 +71,18 @@ const HomePage = () => {
         </Section>
       </Container>
 
-      <Container className={'container'}>
-        <Section>
-          <SpacingLeft>Spend less time on grooming...</SpacingLeft>
+      <Container className={'container'} style={{ backgroundColor: 'black' }}>
+        <Section
+          style={{
+            backgroundColor: 'black',
+            color: 'white',
+            marginTop: '8%',
+            marginBottom: '8%',
+          }}
+        >
+          <SpacingLeft style={{ color: 'white' }}>
+            Spend less time on grooming...
+          </SpacingLeft>
           <CenterDiv>
             <Row>
               <SecondTitle>Why Wait?</SecondTitle>
@@ -110,7 +119,9 @@ const HomePage = () => {
               </div>
             </HiddenRow>
           </CenterDiv>
-          <SpacingRight>...and more time with your pets</SpacingRight>
+          <SpacingRight style={{ color: 'white' }}>
+            ...and more time with your pets
+          </SpacingRight>
         </Section>
       </Container>
 
