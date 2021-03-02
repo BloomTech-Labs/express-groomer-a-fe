@@ -62,15 +62,15 @@ function NavBar() {
       <div className="App-Nav">
         <div className="img-container">
           <div className="express-logo">
-            <span className="groomer-one">Express</span>{' '}
-            <span className="groomer-two">Groomer</span>
+            <span className="groomer-one">E</span>{' '}
+            <span className="groomer-two">G</span>
           </div>
         </div>
 
         <nav className="nav-bar">
-          <Link className="anchor" to="/info">
+          {/* <Link className="anchor" to="/info">
             Info
-          </Link>
+          </Link> */}
           <Link className="anchor" to="/groomer-dashboard">
             Dashboard
           </Link>
@@ -93,8 +93,8 @@ function NavBar() {
         <div className="img-container">
           <Link className="anchor" to="/info">
             <div className="express-logo">
-              <span className="groomer-one">Express</span>{' '}
-              <span className="groomer-two">Groomer</span>
+              <span className="groomer-one">E</span>{' '}
+              <span className="groomer-two">G</span>
             </div>
           </Link>
         </div>
@@ -106,9 +106,9 @@ function NavBar() {
           <Link className="anchor" to="/Search">
             Search
           </Link>
-          <Link className="anchor" to="/info">
+          {/* <Link className="anchor" to="/info">
             Info
-          </Link>
+          </Link> */}
           <Button
             type="primary"
             className={'anchor'}
@@ -125,16 +125,16 @@ function NavBar() {
         <div className="img-container">
           <Link className="anchor" to="/info">
             <div className="express-logo">
-              <span className="groomer-one">Express</span>{' '}
-              <span className="groomer-two">Groomer</span>
+              <span className="groomer-one">E</span>{' '}
+              <span className="groomer-two">G</span>
             </div>
           </Link>
         </div>
 
         <div className="nav-bar">
-          <Link className="anchor" to="/info">
+          {/* <Link className="anchor" to="/info">
             Info
-          </Link>
+          </Link> */}
           <Link className="anchor" to="/Search">
             Search
           </Link>
