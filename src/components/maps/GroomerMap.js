@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import ReactMapGL, { GeolocateControl, Marker, Popup } from 'react-map-gl';
+import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import mapboxgl from 'mapbox-gl';
 import { GroomersContext } from '../../state/contexts/GroomersContext';
 import { APIContext } from '../../state/contexts/APIContext';
@@ -7,6 +7,7 @@ import { Button, Col, Row } from 'antd';
 import { ScissorOutlined } from '@ant-design/icons';
 import '../../styles/GroomerMap.css';
 import { useHistory } from 'react-router-dom';
+import { Rate } from 'antd';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
@@ -49,9 +50,7 @@ const GroomerMap = () => {
 
   return (
     <>
-      <h2 className={'map-heading'}>
-        Use the locator button to zoom to your location
-      </h2>
+      <h2 className={'map-heading'}>Find Groomer Services Near You</h2>
       <Row justify={'center'} className={'map-container'}>
         <Col>
           <ReactMapGL
@@ -62,10 +61,6 @@ const GroomerMap = () => {
               setViewport(viewport);
             }}
           >
-            <GeolocateControl
-              positionOptions={{ enableHighAccuracy: true }}
-              trackUserLocation={true}
-            />
             {allGroomers &&
               allGroomers.map(groomer => {
                 return (
@@ -102,7 +97,10 @@ const GroomerMap = () => {
               >
                 <div>
                   <h2>{selectedGroomer.business_name}</h2>
-
+                  <Rate
+                    disabled={true}
+                    style={{ marginTop: '-6%', marginBottom: '3%' }}
+                  />
                   <h3>
                     {selectedGroomer.address}
                     <br /> {selectedGroomer.city}, {selectedGroomer.state}{' '}
