@@ -25,6 +25,7 @@ const ApptForm = () => {
       userInfo.name,
       userInfo.email
     );
+
     axios
       .post('https://reqres.in/api/users', values)
       .then(response => console.log(response))
