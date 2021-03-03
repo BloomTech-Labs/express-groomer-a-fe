@@ -10,7 +10,8 @@ import { Rate } from 'antd';
 import { GroomersContext } from '../../../state/contexts/GroomersContext';
 import { APIContext } from '../../../state/contexts/APIContext';
 import CalendlyPopupWidget from '../../common/CalendlyPopupWidget';
-import ApptModal from '../../common/ApptModal';
+import ApptModal from '../../forms/GroomerProfileForm/ApptModal';
+
 
 const GroomerPublicProfile = props => {
   const pathway = props.props.match.params.id;
