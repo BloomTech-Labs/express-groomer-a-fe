@@ -4,15 +4,15 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1rem;
+  font-size: 1.125rem;
   margin-top: 75px;
   margin-bottom: 75px;
 
   @media screen and (max-width: 600px) {
-    font-size: 0.75rem;
+    font-size: 1.125rem;
   }
   @media screen and (max-width: 1100px) and (min-width: 600px) {
-    font-size: 0.85rem;
+    font-size: 1rem;
   }
 `;
 
@@ -94,7 +94,7 @@ export const SectionFour = styled.div`
     width: 90%;
     margin: 0px;
     padding: 0px;
-    font-size: 1rem;
+    font-size: 1.125rem;
   }
 `;
 
@@ -141,7 +141,7 @@ export const Row = styled.div`
   margin-right: 10px;
   margin-left: 10px;
   @media screen and (max-width: 600px) {
-    font-size: 0.8rem;
+    font-size: 1.125rem;
     border-radius: 10px;
     padding: 0;
     margin: 30px;
@@ -176,12 +176,12 @@ export const MediumPara = styled.div`
   margin-top: 20px;
   margin-bottom: 30px;
   @media only screen and (max-width: 600px) {
-    font-size: 0.8rem;
+    font-size: 1.125rem;
     margin-top: 10px;
     margin-bottom: 20px;
   }
   @media screen and (max-width: 1100px) and (min-width: 600px) {
-    font-size: 1rem;
+    font-size: 1.125rem;
   }
 `;
 export const Button = styled.button`
@@ -229,7 +229,7 @@ export const Footer = styled.footer`
   justify-content: space-around;
   position: relative;
   @media screen and (max-width: 600px) {
-    font-size: 1rem;
+    font-size: 1.125rem;
     margin-top: 15px;
     margin-bottom: 25px;
     display: flex;
@@ -253,7 +253,7 @@ export const SocialContainer = styled.div`
   color: white;
   font-size: 2rem;
   @media screen and (max-width: 600px) {
-    font-size: 1rem;
+    font-size: 1.125rem;
   }
 `;
 
@@ -274,7 +274,7 @@ export const FooterTitles = styled.span`
   font-weight: 700;
   color: white;
   @media screen and (max-width: 600px) {
-    font-size: 1rem;
+    font-size: 1.125rem;
     margin-top: 15px;
   }
 `;
@@ -283,9 +283,9 @@ export const FooterSect = styled.div`
   display: flex;
   flex-direction: column;
   color: white;
-  font-size: 1.1rem;
+  font-size: 1.125rem;
   @media screen and (max-width: 600px) {
-    font-size: 0.8rem;
+    font-size: 1.125rem;
     margin-top: 20px;
     width: 120px;
     padding-top: 50px;
@@ -313,7 +313,7 @@ export const GroomerImg = styled.img`
 
 export const GroomerText = styled.div`
   @media screen and (max-width: 600px) {
-    font-size: 0.75rem;
+    font-size: 1rem;
     margin-top: -10px;
     margin-bottom: -20px;
   }
