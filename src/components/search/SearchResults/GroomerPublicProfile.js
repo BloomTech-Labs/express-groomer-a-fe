@@ -9,7 +9,6 @@ import { Rate } from 'antd';
 // context imports
 import { GroomersContext } from '../../../state/contexts/GroomersContext';
 import { APIContext } from '../../../state/contexts/APIContext';
-import CalendlyPopupWidget from '../../common/CalendlyPopupWidget';
 import ApptModal from '../../forms/GroomerProfileForm/ApptModal';
 
 const GroomerPublicProfile = props => {
@@ -121,9 +120,6 @@ const GroomerPublicProfile = props => {
                   </p>
                 </div>
               </div>
-              <CalendlyPopupWidget
-                scheduleLink={groomer.personal_calendly_link}
-              />
             </div>
           </div>
         </Layout.Content>
