@@ -1,14 +1,17 @@
 import React from 'react';
 import GroomerTab from '../dashboards/GroomerDashboard/groomer-tabs';
 import '../dashboards/GroomerDashboard/groomer-dash.scss';
+import FadeIn from 'react-fade-in';
 
 const GroomerDashboardPage = () => {
   return (
     <div className="tab-bar">
-      <h1 className="dashboard">Dashboard</h1>
-      <div id="tabs">
-        <GroomerTab />
-      </div>
+      <FadeIn delay={200} transitionDuration={650}>
+        <h1 className="dashboard">Dashboard</h1>
+        <div id="tabs">
+          <GroomerTab />
+        </div>
+      </FadeIn>
     </div>
   );
 };
