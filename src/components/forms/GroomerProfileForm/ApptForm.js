@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import 'antd/dist/antd.css';
+import { UsersContext } from '../../../state/contexts/UsersContext';
 import { Select, Form, DatePicker, TimePicker, Button } from 'antd';
 import axios from 'axios';
 
 const ApptForm = () => {
   const { Option } = Select;
+
+  const { userInfo } = useContext(UsersContext);
 
   const onFinish = fieldsValue => {
     // Should format date value before submit.
@@ -13,8 +16,16 @@ const ApptForm = () => {
       'date-picker': fieldsValue['date-picker'].format('YYYY-MM-DD'),
       'time-picker': fieldsValue['time-picker'].format('HH:mm:ss'),
       service: fieldsValue['service'],
+      'cust-name': userInfo.name,
+      'cust-email': userInfo.email,
     };
-    console.log('Received values of form: ', values);
+    console.log(
+      'Received values of form: ',
+      values,
+      userInfo.name,
+      userInfo.email
+    );
+
     axios
       .post('https://reqres.in/api/users', values)
       .then(response => console.log(response))
