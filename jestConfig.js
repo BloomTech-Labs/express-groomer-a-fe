@@ -4,4 +4,6 @@ Object.defineProperty(window, 'backingStorePixelRatio', {
       return '';
     },
   }),
+
+  "transform": { "^.+\\.(ts|tsx|js|jsx)?$": "ts-jest" },
 });
