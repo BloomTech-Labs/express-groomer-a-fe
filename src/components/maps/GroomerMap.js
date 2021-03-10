@@ -14,8 +14,16 @@ mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worke
 
 const GroomerMap = () => {
   const history = useHistory();
-  const { allGroomers } = useContext(GroomersContext);
+  const {
+    allGroomers,
+    ratingAverage,
+    setRatingAverage,
+    ratingCount,
+  } = useContext(GroomersContext);
   const { getGroomers } = useContext(APIContext);
+  const { getGroomerRatingAverageByID, getGroomerRatingCountByID } = useContext(
+    APIContext
+  );
   const [selectedGroomer, setSelectedGroomer] = useState(null);
 
   const [viewport, setViewport] = useState({
@@ -76,6 +84,8 @@ const GroomerMap = () => {
                       onClick={e => {
                         e.preventDefault();
                         setSelectedGroomer(groomer);
+                        getGroomerRatingAverageByID(groomer.user_id);
+                        getGroomerRatingCountByID(groomer.user_id);
                       }}
                     >
                       {groomer.business_name}
@@ -92,15 +102,24 @@ const GroomerMap = () => {
                   // push to groomer info page before resetting selected groomer
                   await setTimeout(() => {
                     setSelectedGroomer(null);
+                    setRatingAverage({ avg: '0' });
                   }, 1000);
                 }}
               >
                 <div>
                   <h2>{selectedGroomer.business_name}</h2>
+                  {console.log(ratingAverage.avg)}
+                  {console.log('ratingcount', ratingCount)}
                   <Rate
+                    allowHalf
+                    value={parseInt(ratingAverage.avg)}
                     disabled={true}
                     style={{ marginTop: '-6%', marginBottom: '3%' }}
                   />
+                  <p>
+                    {ratingCount.count}
+                    {ratingCount.count === '1' ? ' Rating' : ' Ratings'}
+                  </p>
                   <h3>
                     {selectedGroomer.address}
                     <br /> {selectedGroomer.city}, {selectedGroomer.state}{' '}
