@@ -12,15 +12,20 @@ import { APIContext } from '../../../state/contexts/APIContext';
 import CalendlyPopupWidget from '../../common/CalendlyPopupWidget';
 import ApptModal from '../../forms/GroomerProfileForm/ApptModal';
 
-
 const GroomerPublicProfile = props => {
   const pathway = props.props.match.params.id;
   // context state
-  const { groomer } = useContext(GroomersContext);
-  const { getGroomerByID } = useContext(APIContext);
+  const { groomer, ratingAverage, ratingCount } = useContext(GroomersContext);
+  const {
+    getGroomerByID,
+    getGroomerRatingAverageByID,
+    getGroomerRatingCountByID,
+  } = useContext(APIContext);
 
   useEffect(() => {
     getGroomerByID(pathway);
+    getGroomerRatingAverageByID(pathway);
+    getGroomerRatingCountByID(pathway);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathway]);
 
@@ -53,7 +58,22 @@ const GroomerPublicProfile = props => {
             <p className="heading">{groomer.business_name}</p>
             <ApptModal />
             <div className="rating">
-              <Rate />
+              <div>
+                <Rate
+                  allowHalf
+                  style={{ paddingRight: '12px' }}
+                  value={parseInt(ratingAverage.avg)}
+                />
+                <span style={{ fontSize: '0.9rem' }}>
+                  {ratingAverage.avg === null
+                    ? ''
+                    : parseInt(ratingAverage.avg) + '/5'}
+                </span>
+                <p>
+                  {ratingCount.count}
+                  {ratingCount.count === '1' ? ' user rating' : ' user ratings'}
+                </p>
+              </div>
             </div>
             <div className="avatar">
               <Avatar size={74} icon={<UserOutlined />} />
