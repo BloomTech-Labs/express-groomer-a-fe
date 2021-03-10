@@ -23,6 +23,9 @@ const APIProvider = ({ children }) => {
     setAllGroomers,
     setServices,
     service,
+    setRating,
+    setRatingAverage,
+    setRatingCount,
   } = useContext(GroomersContext);
   const {
     setIsEditing,
@@ -296,6 +299,41 @@ const APIProvider = ({ children }) => {
       });
   };
 
+  const getGroomerRatesByID = pathway => {
+    return axios
+      .get(`${process.env.REACT_APP_API_URI}/groomers/${pathway}/ratings`)
+      .then(res => {
+        setRating(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const getGroomerRatingAverageByID = pathway => {
+    return axios
+      .get(
+        `${process.env.REACT_APP_API_URI}/groomers/${pathway}/ratings/average`
+      )
+      .then(res => {
+        setRatingAverage(res.data[0]);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const getGroomerRatingCountByID = pathway => {
+    return axios
+      .get(`${process.env.REACT_APP_API_URI}/groomers/${pathway}/ratings/count`)
+      .then(res => {
+        setRatingCount(res.data[0]);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   /******************************************************************************
    *                      API calls for pets
    ******************************************************************************/
@@ -336,6 +374,9 @@ const APIProvider = ({ children }) => {
         addNewPet,
         getServices,
         getLatLng,
+        getGroomerRatesByID,
+        getGroomerRatingAverageByID,
+        getGroomerRatingCountByID,
       }}
     >
       {children}
