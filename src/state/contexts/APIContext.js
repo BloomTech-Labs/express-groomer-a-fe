@@ -334,6 +334,25 @@ const APIProvider = ({ children }) => {
       });
   };
 
+  // Scheduling Appointments
+
+  const postAppointment = (authState, pathway, values) => {
+    const headers = getAuthHeader(authState);
+
+    return axios
+      .post(
+        `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerSchedule/${pathway}`,
+        values,
+        { headers }
+      )
+      .then(res => {
+        console.log('Successful appointment posting', res);
+      })
+      .catch(err => {
+        console.log('Failed appointment posting', err);
+      });
+  };
+
   /******************************************************************************
    *                      API calls for pets
    ******************************************************************************/
@@ -377,6 +396,7 @@ const APIProvider = ({ children }) => {
         getGroomerRatesByID,
         getGroomerRatingAverageByID,
         getGroomerRatingCountByID,
+        postAppointment,
       }}
     >
       {children}

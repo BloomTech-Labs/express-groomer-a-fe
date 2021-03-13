@@ -120,7 +120,12 @@ const CustTab = () => {
           }
           key="3"
         >
-          Appointments
+          <h3>Upcoming Appointments:</h3>
+          <h4>Muddy Paws</h4>
+          <p>Date: Monday, 24 Oct. 2021</p>
+          <p>Time: 10:30AM</p>
+          <p>Services: Nail Trim, Bath</p>
+          <button>Reschedule</button>
         </TabPane>
         <TabPane
           tab={

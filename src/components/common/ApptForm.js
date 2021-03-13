@@ -3,7 +3,26 @@ import 'antd/dist/antd.css';
 import { Select, Form, DatePicker, TimePicker, Button } from 'antd';
 import axios from 'axios';
 
+// import { APIContext } from '../../../state/contexts/APIContext';
+// import { GroomersContext } from '../../../state/contexts/GroomersContext';
+
 const ApptForm = () => {
+  // const { groomerServices } = useContext(GroomersContext);
+  // const { getGroomerServicesByID } = useContext(APIContext);
+
+  // const pathway = useParams();
+
+  // useEffect(() => {
+  //   async function fetchData(id) {
+  //     await getGroomerServicesByID(id);
+  //   }
+  //   let id = '';
+  //   id = pathway;
+
+  //   fetchData(id.id);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [servicesUpdated]);
+
   const { Option } = Select;
   const onFinish = fieldsValue => {
     // Should format date value before submit.
@@ -39,7 +58,6 @@ const ApptForm = () => {
       <Form.Item name="time-picker" label="Time" {...config}>
         <TimePicker use12Hours format="h:mm a" />
       </Form.Item>
-
       <Form.Item
         name="service"
         label="Service"
@@ -53,9 +71,6 @@ const ApptForm = () => {
       >
         <Select placeholder="Please select a service">
           <Option value="bath">Bath</Option>
-          <Option value="haircut">Haircut</Option>
-          <Option value="nail-trim">Nail Trim</Option>
-          <Option value="teeth-cleaning">Teeth Cleaning</Option>
         </Select>
       </Form.Item>
 

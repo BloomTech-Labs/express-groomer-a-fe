@@ -21,7 +21,7 @@ const ApptModal = () => {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Schedule Appointment!
+        Schedule Appointment now!
       </Button>
       <Modal
         title="Basic Modal"
