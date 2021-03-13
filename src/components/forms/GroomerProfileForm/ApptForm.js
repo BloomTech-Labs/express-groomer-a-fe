@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import 'antd/dist/antd.css';
-import { Select, Form, DatePicker, TimePicker, Button } from 'antd';
+import { Select, Form, DatePicker, Input, TimePicker, Button } from 'antd';
+import moment from 'moment';
 
 import { APIContext } from '../../../state/contexts/APIContext';
 import { GroomersContext } from '../../../state/contexts/GroomersContext';
@@ -32,19 +33,39 @@ const ApptForm = props => {
       {
         type: 'object',
         required: true,
-        message: 'Please select time!',
+        message: 'Please select date and time',
       },
     ],
   };
 
+  const disablePastDates = current =>
+    current && current < moment().endOf('day');
+
   return (
     <Form name="time_related_controls" onFinish={onFinish}>
       <Form.Item name="date-picker" label="Date" {...config}>
-        <DatePicker />
+        <DatePicker disabledDate={current => disablePastDates(current)} />
       </Form.Item>
 
       <Form.Item name="time-picker" label="Time" {...config}>
         <TimePicker use12Hours format="h:mm a" />
+      </Form.Item>
+
+      <Form.Item
+        name="phone"
+        label="Phone Number"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your phone number',
+          },
+        ]}
+      >
+        <Input
+          style={{
+            width: '100%',
+          }}
+        />
       </Form.Item>
 
       <Form.Item
