@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import 'antd/dist/antd.css';
+import { UsersContext } from '../../../state/contexts/UsersContext';
 import { Select, Form, DatePicker, Input, TimePicker, Button } from 'antd';
 import moment from 'moment';
+
 
 import { APIContext } from '../../../state/contexts/APIContext';
 import { GroomersContext } from '../../../state/contexts/GroomersContext';
@@ -10,10 +12,13 @@ import { useOktaAuth } from '@okta/okta-react';
 const ApptForm = props => {
   const { Option } = Select;
 
+
   const { authState } = useOktaAuth();
   const { groomerServices } = useContext(GroomersContext);
   const pathway = props.props.props.props.match.params.id;
   const { postAppointment } = useContext(APIContext);
+  const { userInfo } = useContext(UsersContext);
+
 
   const onFinish = fieldsValue => {
     // Should format date value before submit.
@@ -23,6 +28,9 @@ const ApptForm = props => {
       startTime: fieldsValue['time-picker'].format('HH:mm:ss'),
       endTime: '23:59',
       services: [fieldsValue['service']],
+//       'cust-name': userInfo.name,
+//       'cust-email': userInfo.email,
+//       phone: fieldsValue['phone'],
     };
     postAppointment(authState, pathway, values);
     console.log('Received values of form: ', values);
@@ -87,6 +95,7 @@ const ApptForm = props => {
               </Option>
             );
           })}
+
         </Select>
       </Form.Item>
 
