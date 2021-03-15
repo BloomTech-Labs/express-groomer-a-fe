@@ -17,7 +17,7 @@ const ApptForm = props => {
   const { groomerServices } = useContext(GroomersContext);
   const pathway = props.props.props.props.match.params.id;
   const { postAppointment } = useContext(APIContext);
-  const { userInfo } = useContext(UsersContext);
+//   const { userInfo } = useContext(UsersContext);
 
 
   const onFinish = fieldsValue => {
