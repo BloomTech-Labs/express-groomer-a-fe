@@ -15,6 +15,9 @@ const GroomersProvider = ({ children }) => {
   const [groomerServices, setGroomerServices] = useState([]);
   const [updated, setUpdated] = useState(false);
   const [servicesUpdated, setServicesUpdated] = useState(false);
+  const [rating, setRating] = useState();
+  const [ratingAverage, setRatingAverage] = useState({ avg: '0' });
+  const [ratingCount, setRatingCount] = useState({});
 
   // context state
   const { userInfo } = useContext(UsersContext);
@@ -183,6 +186,12 @@ const GroomersProvider = ({ children }) => {
         updateCloseHours,
         updateOpenHours,
         deleteGroomerProfile,
+        rating,
+        setRating,
+        ratingAverage,
+        setRatingAverage,
+        ratingCount,
+        setRatingCount,
       }}
     >
       {children}
