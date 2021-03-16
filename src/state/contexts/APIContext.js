@@ -14,7 +14,7 @@ export const APIContext = createContext({});
 const APIProvider = ({ children }) => {
   const history = useHistory();
   const { userInfo, setIsRegistered } = useContext(UsersContext);
-  const { setCustInfo } = useContext(CustomersContext);
+  const { setCustInfo, setCustomerAppointments } = useContext(CustomersContext);
 
   const {
     setGroomerInfo,
@@ -353,6 +353,23 @@ const APIProvider = ({ children }) => {
       });
   };
 
+  const getCustomerAppointments = () => {
+    return axios
+      .get(
+        `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerSchedule`,
+        {}
+      )
+      .then(res => {
+        if (res.data) {
+          setCustomerAppointments(res.data);
+          console.log(res.data);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   /******************************************************************************
    *                      API calls for pets
    ******************************************************************************/
@@ -397,6 +414,7 @@ const APIProvider = ({ children }) => {
         getGroomerRatingAverageByID,
         getGroomerRatingCountByID,
         postAppointment,
+        getCustomerAppointments,
       }}
     >
       {children}
