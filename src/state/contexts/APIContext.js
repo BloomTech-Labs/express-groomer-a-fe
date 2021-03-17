@@ -26,6 +26,7 @@ const APIProvider = ({ children }) => {
     setRating,
     setRatingAverage,
     setRatingCount,
+    setGroomerAppointments,
   } = useContext(GroomersContext);
   const {
     setIsEditing,
@@ -370,6 +371,23 @@ const APIProvider = ({ children }) => {
       });
   };
 
+  const getGroomerAppointments = () => {
+    return axios
+      .get(
+        `${process.env.REACT_APP_API_URI}/groomers/${userInfo.sub}/groomerSchedule`,
+        {}
+      )
+      .then(res => {
+        if (res.data) {
+          setGroomerAppointments(res.data);
+          console.log(res.data);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   /******************************************************************************
    *                      API calls for pets
    ******************************************************************************/
@@ -415,6 +433,7 @@ const APIProvider = ({ children }) => {
         getGroomerRatingCountByID,
         postAppointment,
         getCustomerAppointments,
+        getGroomerAppointments,
       }}
     >
       {children}
