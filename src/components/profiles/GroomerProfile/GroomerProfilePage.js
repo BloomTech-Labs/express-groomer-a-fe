@@ -58,9 +58,9 @@ const GroomerProfilePage = () => {
         <div className="customer-header">
           <p className="heading">
             {' '}
-            {groomerInfo.given_name
-              ? groomerInfo.given_name
-              : userInfo.given_name}{' '}
+            {groomerInfo.business_name
+              ? groomerInfo.business_name
+              : userInfo.business_name}{' '}
           </p>
         </div>
         <div className="customer-info-box">
