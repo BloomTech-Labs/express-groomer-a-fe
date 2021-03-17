@@ -10,6 +10,10 @@ const ApptModal = props => {
     setIsModalVisible(true);
   };
 
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+
   const handleOk = () => {
     setIsModalVisible(false);
   };
@@ -31,7 +35,7 @@ const ApptModal = props => {
           onOk={handleOk}
           onCancel={handleCancel}
         >
-          <ApptForm props={props} />
+          <ApptForm props={props} closeModal={closeModal} />
         </Modal>
       </>
     )
