@@ -1,37 +1,44 @@
 import React, { useContext } from 'react';
 import 'antd/dist/antd.css';
-import { UsersContext } from '../../../state/contexts/UsersContext';
-import { Select, Form, DatePicker, Input, TimePicker, Button } from 'antd';
+// import { UsersContext } from '../../../state/contexts/UsersContext';
+import {
+  Select,
+  notification,
+  Form,
+  DatePicker,
+  Input,
+  TimePicker,
+  Button,
+} from 'antd';
 import moment from 'moment';
-import axios from 'axios';
 
-const ApptForm = () => {
+import { APIContext } from '../../../state/contexts/APIContext';
+import { GroomersContext } from '../../../state/contexts/GroomersContext';
+import { useOktaAuth } from '@okta/okta-react';
+
+const ApptForm = props => {
   const { Option } = Select;
 
-  const { userInfo } = useContext(UsersContext);
+  const { authState } = useOktaAuth();
+  const { groomerServices } = useContext(GroomersContext);
+  const pathway = props.props.props.props.match.params.id;
+  const { postAppointment } = useContext(APIContext);
+  //   const { userInfo } = useContext(UsersContext);
 
   const onFinish = (event, fieldsValue )=> {    
     // Should format date value before submit.
     const values = {
       ...fieldsValue,
-      'date-picker': fieldsValue['date-picker'].format('YYYY-MM-DD'),
-      'time-picker': fieldsValue['time-picker'].format('HH:mm:ss'),
-      service: fieldsValue['service'],
-      'cust-name': userInfo.name,
-      'cust-email': userInfo.email,
-      phone: fieldsValue['phone'],
+      date: fieldsValue['date-picker'].format('YYYY-MM-DD'),
+      startTime: fieldsValue['time-picker'].format('HH:mm:ss'),
+      endTime: '23:59',
+      services: [fieldsValue['service']],
+      //       'cust-name': userInfo.name,
+      //       'cust-email': userInfo.email,
+      //       phone: fieldsValue['phone'],
     };
-    console.log(
-      'Received values of form: ',
-      values,
-      userInfo.name,
-      userInfo.email
-    );
-
-    axios
-      .post('https://reqres.in/api/users', values)
-      .then(response => console.log(response))
-      .catch(err => console.log(err));
+    postAppointment(authState, pathway, values);
+    console.log('Received values of form: ', values);
   };
 
   const config = {
@@ -42,6 +49,15 @@ const ApptForm = () => {
         message: 'Please select date and time',
       },
     ],
+  };
+
+  const openNotification = () => {
+    notification.open({
+      message: 'Success!',
+      description: `Your appointment has been scheduled! `,
+    });
+    console.log(props);
+    props.closeModal();
   };
 
   const disablePastDates = current =>
@@ -90,12 +106,13 @@ const ApptForm = () => {
         ]}
       >
         <Select placeholder="Please select a service">
-          <Option value="fur-trimming">Fur-Trimming</Option>
-          <Option value="nail-trimming">Nail-Trimming</Option>
-          <Option value="fur-styling">Fur-Styling</Option>
-          <Option value="ear-cleaning">Ear Cleaning</Option>
-          <Option value="nail-filing">Nail Filing</Option>
-          <Option value="nail-capping">Nail Capping</Option>
+          {groomerServices.map(service => {
+            return (
+              <Option key={service.id} value={service.id}>
+                {service.service_name}, ${service.services_price}
+              </Option>
+            );
+          })}
         </Select>
       </Form.Item>
 
@@ -111,7 +128,7 @@ const ApptForm = () => {
           },
         }}
       >
-        <Button type="primary" htmlType="submit">
+        <Button onClick={openNotification} type="primary" htmlType="submit">
           Submit
         </Button>
       </Form.Item>

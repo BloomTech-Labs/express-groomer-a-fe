@@ -14,12 +14,9 @@ mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worke
 
 const GroomerMap = () => {
   const history = useHistory();
-  const {
-    allGroomers,
-    ratingAverage,
-    setRatingAverage,
-    ratingCount,
-  } = useContext(GroomersContext);
+  const { allGroomers, ratingAverage, ratingCount } = useContext(
+    GroomersContext
+  );
   const { getGroomers } = useContext(APIContext);
   const { getGroomerRatingAverageByID, getGroomerRatingCountByID } = useContext(
     APIContext
@@ -102,14 +99,11 @@ const GroomerMap = () => {
                   // push to groomer info page before resetting selected groomer
                   await setTimeout(() => {
                     setSelectedGroomer(null);
-                    setRatingAverage({ avg: '0' });
                   }, 1000);
                 }}
               >
                 <div>
                   <h2>{selectedGroomer.business_name}</h2>
-                  {console.log(ratingAverage.avg)}
-                  {console.log('ratingcount', ratingCount)}
                   <Rate
                     allowHalf
                     value={parseInt(ratingAverage.avg)}

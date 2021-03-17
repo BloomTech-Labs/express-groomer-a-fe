@@ -14,7 +14,7 @@ export const APIContext = createContext({});
 const APIProvider = ({ children }) => {
   const history = useHistory();
   const { userInfo, setIsRegistered } = useContext(UsersContext);
-  const { setCustInfo } = useContext(CustomersContext);
+  const { setCustInfo, setCustomerAppointments } = useContext(CustomersContext);
 
   const {
     setGroomerInfo,
@@ -26,6 +26,7 @@ const APIProvider = ({ children }) => {
     setRating,
     setRatingAverage,
     setRatingCount,
+    setGroomerAppointments,
   } = useContext(GroomersContext);
   const {
     setIsEditing,
@@ -334,6 +335,59 @@ const APIProvider = ({ children }) => {
       });
   };
 
+  // Scheduling Appointments
+
+  const postAppointment = (authState, pathway, values) => {
+    const headers = getAuthHeader(authState);
+
+    return axios
+      .post(
+        `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerSchedule/${pathway}`,
+        values,
+        { headers }
+      )
+      .then(res => {
+        console.log('Successful appointment posting', res);
+      })
+      .catch(err => {
+        console.log('Failed appointment posting', err);
+      });
+  };
+
+  const getCustomerAppointments = () => {
+    return axios
+      .get(
+        `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerSchedule`,
+        {}
+      )
+      .then(res => {
+        if (res.data) {
+          setCustomerAppointments(res.data);
+          console.log(res.data);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const getGroomerAppointments = () => {
+    return axios
+      .get(
+        `${process.env.REACT_APP_API_URI}/groomers/${userInfo.sub}/groomerSchedule`,
+        {}
+      )
+      .then(res => {
+        if (res.data) {
+          setGroomerAppointments(res.data);
+          console.log(res.data);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   /******************************************************************************
    *                      API calls for pets
    ******************************************************************************/
@@ -377,6 +431,9 @@ const APIProvider = ({ children }) => {
         getGroomerRatesByID,
         getGroomerRatingAverageByID,
         getGroomerRatingCountByID,
+        postAppointment,
+        getCustomerAppointments,
+        getGroomerAppointments,
       }}
     >
       {children}
