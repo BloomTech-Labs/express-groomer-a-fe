@@ -10,7 +10,7 @@ const ApptForm = () => {
 
   const { userInfo } = useContext(UsersContext);
 
-  const onFinish = fieldsValue => {
+  const onFinish = (event, fieldsValue )=> {    
     // Should format date value before submit.
     const values = {
       ...fieldsValue,
@@ -46,6 +46,10 @@ const ApptForm = () => {
 
   const disablePastDates = current =>
     current && current < moment().endOf('day');
+
+  const handleSubmit = (event) => {
+
+  }
 
   return (
     <Form name="time_related_controls" onFinish={onFinish}>
