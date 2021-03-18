@@ -44,7 +44,7 @@ const ApptForm = props => {
 
     // axios POST request to Twilio API
     axios
-      .post('/api/messages')
+      .post('/api/messages', values)
 
       .then(res => {
         console.log(res);
