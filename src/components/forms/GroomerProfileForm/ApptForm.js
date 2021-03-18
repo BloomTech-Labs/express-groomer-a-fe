@@ -12,6 +12,8 @@ import {
 } from 'antd';
 import moment from 'moment';
 
+import axios from 'axios';
+
 import { APIContext } from '../../../state/contexts/APIContext';
 import { GroomersContext } from '../../../state/contexts/GroomersContext';
 import { useOktaAuth } from '@okta/okta-react';
@@ -25,7 +27,7 @@ const ApptForm = props => {
   const { postAppointment } = useContext(APIContext);
   //   const { userInfo } = useContext(UsersContext);
 
-  const onFinish = (event, fieldsValue )=> {    
+  const onFinish = (event, fieldsValue) => {
     // Should format date value before submit.
     const values = {
       ...fieldsValue,
@@ -39,6 +41,17 @@ const ApptForm = props => {
     };
     postAppointment(authState, pathway, values);
     console.log('Received values of form: ', values);
+
+    // axios POST request to Twilio API
+    axios
+      .post('/api/messages')
+
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   const config = {
@@ -62,10 +75,6 @@ const ApptForm = props => {
 
   const disablePastDates = current =>
     current && current < moment().endOf('day');
-
-  const handleSubmit = (event) => {
-
-  }
 
   return (
     <Form name="time_related_controls" onFinish={onFinish}>
