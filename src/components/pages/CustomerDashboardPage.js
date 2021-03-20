@@ -7,7 +7,7 @@ const CustomerDashboardPage = () => {
   return (
     <div className="tab-bar">
       <FadeIn delay={200} transitionDuration={650}>
-        <h1 className="dashboard">Dashboard</h1>
+        {/* <h1 className="dashboard">Dashboard</h1> */}
         <div id="tabs">
           <CustTab />
         </div>

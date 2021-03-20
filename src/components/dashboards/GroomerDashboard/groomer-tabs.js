@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Alert, Col, Form, Row, Tabs } from 'antd';
-import Overview from './overview';
+import { Alert, Col, Form, Row, Tabs, Card } from 'antd';
+// import Overview from './overview';
 import GroomerProfilePage from '../../profiles/GroomerProfile/GroomerProfilePage';
 import RenderFormGR from '../../forms/GroomerProfileForm/RenderFormGR';
 import './groomer-dash.scss';
@@ -36,7 +36,7 @@ const GroomerTab = () => {
           tabPosition={mode}
           style={{ height: '100%', marginLeft: '5%' }}
         >
-          <TabPane
+          {/* <TabPane
             style={{ fontSize: '16px' }}
             tab={
               <span>
@@ -46,7 +46,7 @@ const GroomerTab = () => {
             key="0"
           >
             <Overview />
-          </TabPane>
+          </TabPane> */}
           <TabPane
             tab={
               <span>
@@ -55,20 +55,6 @@ const GroomerTab = () => {
             }
             key="1"
           >
-            <Row justify={'center'}>
-              <Col>
-                <RenderFormGR />
-              </Col>
-            </Row>
-            <Row justify={'center'}>
-              <h2 style={{ marginTop: '10px' }}>Upload License</h2>
-            </Row>
-            <Row justify={'center'}>
-              <FileUpload
-                uploadUrl={`groomers/license-upload/${groomerInfo.user_id}`}
-              />
-            </Row>
-
             <Row justify={'center'} className={'alert-row'}>
               {resultInfo.message !== null ? (
                 <Form.Item>
@@ -81,7 +67,29 @@ const GroomerTab = () => {
                 </Form.Item>
               ) : null}
             </Row>
-            <GroomerProfilePage />
+            <Row justify={'center'}>
+              <Col style={{ marginTop: '-5%' }}>
+                <RenderFormGR />
+              </Col>
+            </Row>
+            <div style={{ marginTop: '12%' }}>
+              <GroomerProfilePage />
+            </div>
+            {/* <Row justify={'center'}>
+              <Col>
+                <RenderFormGR />
+              </Col>
+            </Row> */}
+            <div style={{ margin: '6%' }}>
+              <Row>
+                <h2 style={{ marginTop: '10px' }}>Upload License</h2>
+              </Row>
+              <Row>
+                <FileUpload
+                  uploadUrl={`groomers/license-upload/${groomerInfo.user_id}`}
+                />
+              </Row>
+            </div>
           </TabPane>
 
           <TabPane
@@ -91,7 +99,14 @@ const GroomerTab = () => {
               </span>
             }
             key="2"
-          ></TabPane>
+          >
+            <div>
+              <img
+                alt="Dropping Soon"
+                src="https://media4.giphy.com/media/oFDSjMfe11iiOgQRfY/giphy.gif?cid=ecf05e47n0390t5bo51sb87wl985q777gm0j18szjottt74i&rid=giphy.gif"
+              />
+            </div>
+          </TabPane>
           <TabPane
             tab={
               <span>
@@ -100,36 +115,83 @@ const GroomerTab = () => {
             }
             key="3"
           >
-            <h3>Upcoming Appointments:</h3>
+            <h2 style={{ margin: '2%' }}>Upcoming Appointments:</h2>
             <br />
-            {groomerAppointments !== undefined ? (
-              groomerAppointments.map(info => {
-                return (
-                  <div key={Date.now()}>
-                    <h4>
-                      {info.given_name} {info.family_name}
-                    </h4>
-                    <p>Date: {info.date}</p>
-                    <p>Time: {info.startTime}</p>
-                    <p>
-                      Services:{' '}
-                      {info.transaction.map(data => {
-                        return data;
-                      })}
-                    </p>
-                    <button>Reschedule</button>
-                    <button>Accept</button>
-                    <button>Decline</button>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                  </div>
-                );
-              })
-            ) : (
-              <p>No Appointments</p>
-            )}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                flexWrap: 'wrap',
+              }}
+            >
+              {groomerAppointments !== undefined ? (
+                groomerAppointments.map(info => {
+                  return (
+                    <div key={Date.now()} style={{ margin: '2%' }}>
+                      <Card
+                        hoverable
+                        title={`${info.given_name} ${info.family_name}`}
+                        style={{ width: 300, border: 'solid 0.8px black' }}
+                      >
+                        <h3 style={{ marginTop: '2%' }}>Date:</h3>
+                        <h4
+                          style={{ marginBottom: '-1%', fontStyle: 'italic' }}
+                        >
+                          Day
+                        </h4>
+                        <p>{info.date.slice(0, 10)}</p>
+                        <h4
+                          style={{
+                            marginTop: '2%',
+                            marginBottom: '-1%',
+                            fontStyle: 'italic',
+                          }}
+                        >
+                          Time
+                        </h4>
+                        <p>{info.startTime.slice(0, 5)}</p>
+                        <h3 style={{ marginTop: '2%' }}>Services:</h3>
+                        <p>
+                          {info.transaction.map(data => {
+                            return data;
+                          })}
+                        </p>
+                        <h3 style={{ marginTop: '2%' }}>Address:</h3>
+                        <p>{info.address}</p>
+                        <p
+                          style={{ marginTop: '-6%' }}
+                        >{`${info.city}, ${info.state} ${info.zip_code}`}</p>
+                        <h3 style={{ marginTop: '2%' }}>Contact:</h3>
+                        <h4
+                          style={{
+                            marginTop: '2%',
+                            marginBottom: '-2%',
+                            fontStyle: 'italic',
+                          }}
+                        >
+                          Phone Numer
+                        </h4>
+                        <a
+                          href={`tel:${info.phone_number}`}
+                          style={{ marginTop: '0%' }}
+                        >
+                          {info.phone_number}
+                        </a>
+                        <br />
+                        <div style={{ paddingTop: '8%' }}>
+                          <button>Reschedule</button>
+                          <button>Accept</button>
+                          <button>Decline</button>
+                        </div>
+                      </Card>
+                    </div>
+                  );
+                })
+              ) : (
+                <p>No Appointments</p>
+              )}
+            </div>
           </TabPane>
         </Tabs>
       </div>
