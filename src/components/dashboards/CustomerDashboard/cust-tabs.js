@@ -229,7 +229,7 @@ const CustTab = () => {
                             fontStyle: 'italic',
                           }}
                         >
-                          Phone Numer
+                          Phone Number
                         </h4>
                         <a
                           href={`tel:${info.phone_number}`}
