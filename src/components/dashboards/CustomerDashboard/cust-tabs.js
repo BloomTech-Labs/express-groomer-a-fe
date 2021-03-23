@@ -1,6 +1,6 @@
-import { Alert, Row, Tabs } from 'antd';
+import { Alert, Row, Tabs, Card } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
-import Overview from './overview';
+// import Overview from './overview';
 import CustomerProfilePage from '../../profiles/CustomerProfile/CustProContainer';
 import { ProfileFormPO } from '../../forms/CustomerProfileForm';
 import AddPetForm from '../../forms/PetForm/AddPetForm';
@@ -41,7 +41,7 @@ const CustTab = () => {
           tabPosition={mode}
           style={{ height: '100%', marginLeft: '5%' }}
         >
-          <TabPane
+          {/* <TabPane
             style={{ fontSize: '16px' }}
             tab={
               <span>
@@ -51,17 +51,18 @@ const CustTab = () => {
             key="0"
           >
             <Overview />
-          </TabPane>
+          </TabPane> */}
           <TabPane
             tab={
               <span>
                 <i className="fas fa-paw"></i>
-                My Info
+                {` `}
+                {` My Info`}
               </span>
             }
             key="1"
           >
-            <Row justify={'center'}>
+            <Row justify={'center'} style={{ marginLeft: '-10%' }}>
               <ProfileFormPO />
             </Row>
             <Row justify={'center'} style={{ height: '60px' }}>
@@ -74,7 +75,9 @@ const CustTab = () => {
                 />
               ) : null}
             </Row>
-            <CustomerProfilePage />
+            <div style={{ marginTop: '-8%', marginLeft: '-10%' }}>
+              <CustomerProfilePage />
+            </div>
           </TabPane>
           <TabPane
             tab={
@@ -126,27 +129,91 @@ const CustTab = () => {
             }
             key="3"
           >
-            <h3>Upcoming Appointments:</h3>
-            {customerAppointments !== undefined ? (
-              customerAppointments.map(info => {
-                return (
-                  <div key={Date.now()}>
-                    <h4>{info.business_name}</h4>
-                    <p>Date: {info.date}</p>
-                    <p>Time: {info.startTime}</p>
-                    <p>
-                      Services:{' '}
-                      {info.transaction.map(data => {
-                        return data;
-                      })}
-                    </p>
-                    <button>Reschedule</button>
-                  </div>
-                );
-              })
-            ) : (
-              <p>No Appointments</p>
-            )}
+            <h2 style={{ margin: '2%' }}>Upcoming Appointments:</h2>
+            <br />
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                flexWrap: 'wrap',
+              }}
+            >
+              {customerAppointments !== undefined ? (
+                customerAppointments.map(info => {
+                  return (
+                    <div key={Date.now()} style={{ margin: '2%' }}>
+                      <Card
+                        hoverable
+                        title={`${info.business_name}`}
+                        style={{ width: 375, border: 'solid 0.8px black' }}
+                      >
+                        <h3>Certified Groomer:</h3>
+                        <p>{`${info.given_name} ${info.family_name.slice(
+                          0,
+                          1
+                        )}.`}</p>
+                        <h3 style={{ marginTop: '2%' }}>Address:</h3>
+                        <p>{info.address}</p>
+                        <p
+                          style={{ marginTop: '-6%' }}
+                        >{`${info.city}, ${info.state} ${info.zip_code}`}</p>
+                        <h3 style={{ marginTop: '2%' }}>Date:</h3>
+                        <h4
+                          style={{ marginBottom: '-1%', fontStyle: 'italic' }}
+                        >
+                          Day
+                        </h4>
+                        <p>{info.date.slice(0, 10)}</p>
+                        <h4
+                          style={{
+                            marginTop: '2%',
+                            marginBottom: '-1%',
+                            fontStyle: 'italic',
+                          }}
+                        >
+                          Time
+                        </h4>
+                        <p>{info.startTime.slice(0, 5)}</p>
+                        <h3 style={{ marginTop: '2%' }}>Services:</h3>
+                        <p>
+                          {info.transaction.map(data => {
+                            return data;
+                          })}
+                        </p>
+                        <h3 style={{ marginTop: '2%' }}>Contact:</h3>
+                        <h4
+                          style={{ marginBottom: '-2%', fontStyle: 'italic' }}
+                        >
+                          Email
+                        </h4>
+                        <a href={`mailto:${info.email}`}> {info.email}</a>
+                        <h4
+                          style={{
+                            marginTop: '2%',
+                            marginBottom: '-2%',
+                            fontStyle: 'italic',
+                          }}
+                        >
+                          Phone Numer
+                        </h4>
+                        <a
+                          href={`tel:${info.phone_number}`}
+                          style={{ marginTop: '0%' }}
+                        >
+                          {info.phone_number}
+                        </a>
+                        <p></p>
+                        <button style={{ pattingTop: '8%' }}>Reschedule</button>
+                        <button>Cancel</button>
+                      </Card>
+                    </div>
+                  );
+                })
+              ) : (
+                <p>No Appointments</p>
+              )}
+            </div>
           </TabPane>
           <TabPane
             tab={
