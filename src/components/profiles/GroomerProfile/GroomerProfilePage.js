@@ -41,17 +41,17 @@ const GroomerProfilePage = () => {
   }, [groomerInfo]);
 
   return (
-    <div>
+    <div style={{ marginTop: '-12.5%' }}>
       {showForm ? <ProfileFormGR /> : null}
       <Layout.Content
         style={{
           background: 'white',
-          width: '75%',
+          width: '100%',
           margin: '20px auto',
           padding: '10px',
         }}
       >
-        <div className="avatar">
+        <div style={{ marginBottom: '4%' }} className="avatar">
           <Avatar size={74} icon={<UserOutlined />} />
         </div>
 
