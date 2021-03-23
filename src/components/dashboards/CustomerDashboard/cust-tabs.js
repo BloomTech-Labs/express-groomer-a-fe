@@ -26,6 +26,21 @@ const CustTab = () => {
   const { custInfo, customerAppointments } = useContext(CustomersContext);
   const { getCustomerByID, getCustomerAppointments } = useContext(APIContext);
 
+  var month = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
   useEffect(() => {
     getCustomerByID(authState);
     getCustomerAppointments();
@@ -164,7 +179,13 @@ const CustTab = () => {
                         >
                           Day
                         </h4>
-                        <p>{info.date.slice(0, 10)}</p>
+
+                        <p>
+                          {info.date.slice(8, 10)}{' '}
+                          {month[info.date.slice(5, 7) - 1]},{' '}
+                          {info.date.slice(0, 4)}
+                        </p>
+
                         <h4
                           style={{
                             marginTop: '2%',
@@ -174,7 +195,20 @@ const CustTab = () => {
                         >
                           Time
                         </h4>
-                        <p>{info.startTime.slice(0, 5)}</p>
+                        {/* <p>{info.startTime.slice(0, 5)}</p> */}
+                        <p>
+                          {info.startTime.slice(0, 2) === 12
+                            ? info.startTime.slice(0, 5) + 'PM'
+                            : info.startTime.slice(0, 2) < 12
+                            ? info.startTime.slice(0, 5) + 'AM'
+                            : info.startTime.slice(0, 2) > 12
+                            ? info.startTime.slice(0, 2) -
+                              12 +
+                              ':' +
+                              info.startTime.slice(3, 5) +
+                              'PM'
+                            : info.startTime.slice(0, 5) + 'PM'}{' '}
+                        </p>
                         <h3 style={{ marginTop: '2%' }}>Services:</h3>
                         <p>
                           {info.transaction.map(data => {
