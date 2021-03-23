@@ -26,7 +26,7 @@ const ApptModal = props => {
     console.log('Appointment model props', props),
     (
       <>
-        <Button type="primary" onClick={showModal}>
+        <Button id="appt-modal-button" type="primary" onClick={showModal}>
           Schedule Appointment!
         </Button>
         <Modal
