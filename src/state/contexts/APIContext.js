@@ -388,7 +388,7 @@ const APIProvider = ({ children }) => {
       });
   };
 
-  // Scheduling Appointments
+  // Favoriting Groomers
   // const postFavorites = (authState, pathway) => {
   //   const headers = getAuthHeader(authState);
   //   return axios
