@@ -57,6 +57,7 @@ const GroomerPublicProfile = props => {
           >
             <div className="customer-header">
               <p className="heading">{groomer.business_name}</p>
+              <button className="favButton">Add to Favorites</button>
               <ApptModal props={props} />
               <div className="rating">
                 <div>
