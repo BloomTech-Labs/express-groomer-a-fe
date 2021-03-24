@@ -186,7 +186,7 @@ const GroomerTab = () => {
                         </p>
                         <h3 style={{ marginTop: '2%' }}>Services:</h3>
                         <p>
-                          {info.transaction.map(data => {
+                          {info.cart.map(data => {
                             return data;
                           })}
                         </p>
