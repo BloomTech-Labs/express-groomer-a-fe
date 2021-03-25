@@ -11,6 +11,7 @@ const CustomersProvider = ({ children }) => {
   const history = useHistory();
   const [custInfo, setCustInfo] = useState({});
   const [customerAppointments, setCustomerAppointments] = useState();
+  const [customerFavorites, setCustomerFavorites] = useState();
   const [updated, setUpdated] = useState(false);
   const { userInfo } = useContext(UsersContext);
   const { deleteProfile } = useContext(APIContext);
@@ -31,6 +32,8 @@ const CustomersProvider = ({ children }) => {
         deleteCustomerProfile,
         customerAppointments,
         setCustomerAppointments,
+        customerFavorites,
+        setCustomerFavorites,
       }}
     >
       {children}
