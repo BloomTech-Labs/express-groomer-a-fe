@@ -388,6 +388,38 @@ const APIProvider = ({ children }) => {
       });
   };
 
+  // Favoriting Groomers
+  // const postFavorites = (authState, pathway) => {
+  //   const headers = getAuthHeader(authState);
+  //   return axios
+  //     .post(
+  //       `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerFavorites/${pathway}`,
+  //       { headers }
+  //     )
+  //     .then(res => {
+  //       console.log('Successful favorite posting', res);
+  //     })
+  //     .catch(err => {
+  //       console.log('Failed favorite posting', err);
+  //     });
+  // };
+  // const getCustomerFavorites = () => {
+  //   return axios
+  //     .get(
+  //       `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerFavorites`,
+  //       {}
+  //     )
+  //     .then(res => {
+  //       if (res.data) {
+  //         setCustomerFavorites(res.data);
+  //         console.log(res.data);
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
+
   /******************************************************************************
    *                      API calls for pets
    ******************************************************************************/
