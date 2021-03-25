@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import 'antd/dist/antd.css';
 // import { UsersContext } from '../../../state/contexts/UsersContext';
 import {
@@ -43,15 +43,20 @@ const ApptForm = props => {
     console.log('Received values of form: ', values);
 
     // axios POST request to Twilio API
-    axios
-      .post('/api/messages', values)
+    useEffect(() => {
+      axios
+        .post(
+          'https://api.twilio.com/2010-04-01/Accounts/{AccountSid}/Messages.json',
+          values
+        )
 
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
   };
 
   const config = {
