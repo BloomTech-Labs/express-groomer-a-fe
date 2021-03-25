@@ -253,12 +253,14 @@ const CustTab = () => {
           <TabPane
             tab={
               <span>
-                <i className="fas fa-paw"></i> Search Groomers
+                <i className="fas fa-paw"></i> Favorite Groomers
               </span>
             }
             key="4"
           >
-            Search Groomers
+            <div className="Favorite-Groomers">
+              <h1>Favorite Groomers</h1>
+            </div>
           </TabPane>
         </Tabs>
       </div>
