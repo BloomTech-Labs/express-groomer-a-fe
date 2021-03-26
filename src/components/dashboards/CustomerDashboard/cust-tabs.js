@@ -161,10 +161,11 @@ const CustTab = () => {
               {customerAppointments !== undefined ? (
                 customerAppointments.map(info => {
                   return (
-                    <div key={Date.now()} style={{ margin: '2%' }}>
+                    <div key={info.transaction} style={{ margin: '2%' }}>
                       <Card
                         hoverable
                         title={`${info.business_name}`}
+                        extra={`${info.confirmation}`}
                         style={{ width: 375, border: 'solid 0.8px black' }}
                       >
                         <h3>Certified Groomer:</h3>

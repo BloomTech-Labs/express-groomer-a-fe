@@ -389,6 +389,7 @@ const APIProvider = ({ children }) => {
       });
   };
 
+
   //Favoriting Groomers
   const postFavorite = (authState, pathway) => {
     const headers = getAuthHeader(authState);
@@ -420,6 +421,56 @@ const APIProvider = ({ children }) => {
         console.log(err);
       });
   };
+
+  const editGroomerAppointmentConfirmation = (authState, confirmation) => {
+    const headers = getAuthHeader(authState);
+    return axios
+      .put(
+        `${process.env.REACT_APP_API_URI}/groomers/${userInfo.sub}/groomerSchedule/confirm`,
+        confirmation,
+        { headers }
+      )
+      .then(res => {
+        console.log('Successful appointment confirmation', res);
+      })
+      .catch(err => {
+        console.log('Failed appointment confirmation', err);
+      });
+  };
+
+  // Favoriting Groomers
+  // const postFavorites = (authState, pathway) => {
+  //   const headers = getAuthHeader(authState);
+  //   return axios
+  //     .post(
+  //       `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerFavorites/${pathway}`,
+  //       { headers }
+  //     )
+  //     .then(res => {
+  //       console.log('Successful favorite posting', res);
+  //     })
+  //     .catch(err => {
+  //       console.log('Failed favorite posting', err);
+  //     });
+  // };
+  // const getCustomerFavorites = () => {
+  //   return axios
+  //     .get(
+  //       `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerFavorites`,
+  //       {}
+  //     )
+  //     .then(res => {
+  //       if (res.data) {
+  //         setCustomerFavorites(res.data);
+  //         console.log(res.data);
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
+
+
 
   /******************************************************************************
    *                      API calls for pets
@@ -469,6 +520,7 @@ const APIProvider = ({ children }) => {
         getGroomerAppointments,
         getCustomerFavorites,
         postFavorite,
+        editGroomerAppointmentConfirmation,
       }}
     >
       {children}
