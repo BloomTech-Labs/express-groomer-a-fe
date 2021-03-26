@@ -75,7 +75,7 @@ const RenderFormPO = () => {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <Button type="primary" onClick={showModal} style={{ margin: '2rem' }}>
         Update Information
       </Button>
       <Modal
