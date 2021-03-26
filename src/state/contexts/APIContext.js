@@ -388,6 +388,23 @@ const APIProvider = ({ children }) => {
       });
   };
 
+
+  const editGroomerAppointmentConfirmation = (authState, confirmation) => {
+    const headers = getAuthHeader(authState);
+    return axios
+      .put(
+        `${process.env.REACT_APP_API_URI}/groomers/${userInfo.sub}/groomerSchedule/confirm`,
+        confirmation,
+        { headers }
+      )
+      .then(res => {
+        console.log('Successful appointment confirmation', res);
+      })
+      .catch(err => {
+        console.log('Failed appointment confirmation', err);
+      });
+  };
+
   // Favoriting Groomers
   // const postFavorites = (authState, pathway) => {
   //   const headers = getAuthHeader(authState);
@@ -419,6 +436,7 @@ const APIProvider = ({ children }) => {
   //       console.log(err);
   //     });
   // };
+
 
   /******************************************************************************
    *                      API calls for pets
@@ -466,6 +484,7 @@ const APIProvider = ({ children }) => {
         postAppointment,
         getCustomerAppointments,
         getGroomerAppointments,
+        editGroomerAppointmentConfirmation,
       }}
     >
       {children}
