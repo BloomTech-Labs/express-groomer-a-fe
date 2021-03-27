@@ -371,6 +371,22 @@ const APIProvider = ({ children }) => {
       });
   };
 
+  const editCustomerAppointmentConfirmation = (authState, confirmation) => {
+    const headers = getAuthHeader(authState);
+    return axios
+      .put(
+        `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerSchedule/confirm`,
+        confirmation,
+        { headers }
+      )
+      .then(res => {
+        console.log('Successful appointment confirmation', res);
+      })
+      .catch(err => {
+        console.log('Failed appointment confirmation', err);
+      });
+  };
+
   const getGroomerAppointments = () => {
     return axios
       .get(
@@ -451,6 +467,7 @@ const APIProvider = ({ children }) => {
         getCustomerAppointments,
         getGroomerAppointments,
         editGroomerAppointmentConfirmation,
+        editCustomerAppointmentConfirmation,
       }}
     >
       {children}
