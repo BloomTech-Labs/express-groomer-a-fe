@@ -23,14 +23,16 @@ const CustTab = () => {
   const [mode] = useState('left');
   // context state
   const { resultInfo } = useContext(FormContext);
-  const { custInfo, customerAppointments } = useContext(CustomersContext);
+  const { custInfo, customerAppointments, customerFavorites } = useContext(CustomersContext);
   const {
     getCustomerByID,
     getCustomerAppointments,
     editCustomerAppointmentConfirmation,
+    getCustomerFavorites
   } = useContext(APIContext);
 
   const [click, setClick] = useState(0);
+
 
   var month = [
     'Jan',
@@ -50,6 +52,7 @@ const CustTab = () => {
   useEffect(() => {
     getCustomerByID(authState);
     getCustomerAppointments();
+    getCustomerFavorites();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [click]);
 
@@ -289,12 +292,30 @@ const CustTab = () => {
           <TabPane
             tab={
               <span>
-                <i className="fas fa-paw"></i> Search Groomers
+                <i className="fas fa-paw"></i> Favorite Groomers
               </span>
             }
             key="4"
           >
-            Search Groomers
+            <div className="Favorite-Groomers">
+              <h1>Favorite Groomers</h1>
+              {customerFavorites !== undefined ? (
+                customerFavorites.map(info => {
+                  return (
+                    <div key={info.transaction()} style={{ margin: '2%' }}>
+                      <Card
+                        hoverable
+                        title={`${info.business_name}`}
+                        style={{ width: 375, border: 'solid 0.8px black' }}
+                      ></Card>
+                      <button>Remove</button>
+                    </div>
+                  );
+                })
+              ) : (
+                <p>No Favorites</p>
+              )}
+            </div>
           </TabPane>
         </Tabs>
       </div>
