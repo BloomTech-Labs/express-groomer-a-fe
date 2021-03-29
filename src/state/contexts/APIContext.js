@@ -312,6 +312,21 @@ const APIProvider = ({ children }) => {
       });
   };
 
+  const postRating = (pathway, payload) => {
+    return axios
+      .post(
+        `${process.env.REACT_APP_API_URI}/groomers/${pathway}/ratings/${userInfo.sub}`,
+        payload
+      )
+      .then(res => {
+        console.log(payload);
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   const getGroomerRatingAverageByID = pathway => {
     return axios
       .get(
@@ -532,6 +547,7 @@ const APIProvider = ({ children }) => {
         getGroomerRatingAverageByID,
         getGroomerRatingCountByID,
         postAppointment,
+        postRating,
         getCustomerAppointments,
         getGroomerAppointments,
         getCustomerFavorites,
