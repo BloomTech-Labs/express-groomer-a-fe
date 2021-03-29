@@ -10,21 +10,25 @@ import { Rate } from 'antd';
 import { GroomersContext } from '../../../state/contexts/GroomersContext';
 import { APIContext } from '../../../state/contexts/APIContext';
 import ApptModal from '../../forms/GroomerProfileForm/ApptModal';
+import { useOktaAuth } from '@okta/okta-react';
 
 const GroomerPublicProfile = props => {
   const pathway = props.props.match.params.id;
   // context state
   const { groomer, ratingAverage, ratingCount } = useContext(GroomersContext);
+  const { authState } = useOktaAuth();
   const {
     getGroomerByID,
     getGroomerRatingAverageByID,
     getGroomerRatingCountByID,
+    postCustomerFavorite,
   } = useContext(APIContext);
 
   useEffect(() => {
     getGroomerByID(pathway);
     getGroomerRatingAverageByID(pathway);
     getGroomerRatingCountByID(pathway);
+    postCustomerFavorite(authState, pathway);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathway]);
 
@@ -57,7 +61,13 @@ const GroomerPublicProfile = props => {
           >
             <div className="customer-header">
               <p className="heading">{groomer.business_name}</p>
-              <button className="favButton">Add to Favorites</button>
+              <button
+                onClick={() => {
+                  postCustomerFavorite(authState, groomer.user_id);
+                }}
+              >
+                Favorite this Groomer!
+              </button>
               <ApptModal props={props} />
               <div className="rating">
                 <div>

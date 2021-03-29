@@ -390,11 +390,11 @@ const APIProvider = ({ children }) => {
   };
 
   //Favoriting Groomers
-  const postFavorite = (authState, pathway) => {
+  const postCustomerFavorite = (authState, pathway) => {
     const headers = getAuthHeader(authState);
     return axios
       .post(
-        `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerFavorites/${pathway}`,
+        `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/favorites/${pathway}`,
         { headers }
       )
       .then(res => {
@@ -407,7 +407,7 @@ const APIProvider = ({ children }) => {
   const getCustomerFavorites = () => {
     return axios
       .get(
-        `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerFavorites`,
+        `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/favorites`,
         {}
       )
       .then(res => {
@@ -468,7 +468,7 @@ const APIProvider = ({ children }) => {
         getCustomerAppointments,
         getGroomerAppointments,
         getCustomerFavorites,
-        postFavorite,
+        postCustomerFavorite,
       }}
     >
       {children}
