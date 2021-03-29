@@ -1,4 +1,4 @@
-import { Alert, Row, Tabs, Card } from 'antd';
+import { Alert, Row, Tabs, Card, Button } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 // import Overview from './overview';
 import CustomerProfilePage from '../../profiles/CustomerProfile/CustProContainer';
@@ -243,8 +243,14 @@ const CustTab = () => {
                           {info.phone_number}
                         </a>
                         <p></p>
-                        <button style={{ pattingTop: '8%' }}>Reschedule</button>
-                        <button>Cancel</button>
+                        <div
+                          style={{ display: 'flex', justifyContent: 'center' }}
+                        >
+                          <Button style={{ marginRight: '1rem' }}>
+                            Reschedule
+                          </Button>
+                          <Button type="danger">Cancel</Button>
+                        </div>
                       </Card>
                     </div>
                   );
