@@ -23,11 +23,16 @@ const CustTab = () => {
   const [mode] = useState('left');
   // context state
   const { resultInfo } = useContext(FormContext);
-  const { custInfo, customerAppointments, customerFavorites } = useContext(
-    CustomersContext
-  );
-  const { getCustomerByID, getCustomerAppointments } = useContext(APIContext);
-  const { getCustomerFavorites } = useContext(APIContext);
+  const { custInfo, customerAppointments, customerFavorites } = useContext(CustomersContext);
+  const {
+    getCustomerByID,
+    getCustomerAppointments,
+    editCustomerAppointmentConfirmation,
+    getCustomerFavorites
+  } = useContext(APIContext);
+
+  const [click, setClick] = useState(0);
+
 
   var month = [
     'Jan',
@@ -49,7 +54,7 @@ const CustTab = () => {
     getCustomerAppointments();
     getCustomerFavorites();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [click]);
 
   return (
     console.log('Customer appointments state', customerAppointments),
@@ -160,6 +165,10 @@ const CustTab = () => {
             >
               {customerAppointments !== undefined ? (
                 customerAppointments.map(info => {
+                  let canceled = {
+                    confirmation: 'canceled',
+                    transaction_id: info.transaction,
+                  };
                   return (
                     <div key={info.transaction} style={{ margin: '2%' }}>
                       <Card
@@ -214,12 +223,18 @@ const CustTab = () => {
                               'PM'
                             : info.startTime.slice(0, 5) + 'PM'}{' '}
                         </p>
-                        <h3 style={{ marginTop: '2%' }}>Services:</h3>
-                        <p>
-                          {info.cart.map(data => {
-                            return data;
-                          })}
-                        </p>
+                        {info.confirmation !== 'canceled' ? (
+                          <div>
+                            <h3 style={{ marginTop: '2%' }}>Services:</h3>
+                            <p>
+                              {info.cart.map(data => {
+                                return data;
+                              })}
+                            </p>
+                          </div>
+                        ) : (
+                          <div></div>
+                        )}
                         <h3 style={{ marginTop: '2%' }}>Contact:</h3>
                         <h4
                           style={{ marginBottom: '-2%', fontStyle: 'italic' }}
@@ -243,14 +258,28 @@ const CustTab = () => {
                           {info.phone_number}
                         </a>
                         <p></p>
-                        <div
-                          style={{ display: 'flex', justifyContent: 'center' }}
-                        >
-                          <Button style={{ marginRight: '1rem' }}>
-                            Reschedule
-                          </Button>
-                          <Button type="danger">Cancel</Button>
-                        </div>
+                        {info.confirmation !== 'canceled' ? (
+                          <div>
+                            <Button style={{ pattingTop: '8%' }}>
+                              Reschedule
+                            </Button>
+                            <Button
+                              type="primary"
+                              danger
+                              onClick={() => {
+                                editCustomerAppointmentConfirmation(
+                                  authState,
+                                  canceled
+                                );
+                                setClick(click + 1);
+                              }}
+                            >
+                              Cancel
+                            </Button>{' '}
+                          </div>
+                        ) : (
+                          <div></div>
+                        )}
                       </Card>
                     </div>
                   );
