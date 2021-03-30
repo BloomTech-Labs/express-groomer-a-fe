@@ -1,6 +1,20 @@
-import { Alert, Row, Tabs, Card } from 'antd';
+import {
+  Alert,
+  Row,
+  Tabs,
+  Card,
+  Button,
+  Modal,
+  Form,
+  Input,
+  TimePicker,
+  Select,
+  DatePicker,
+  notification,
+} from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 // import Overview from './overview';
+import moment from 'moment';
 import CustomerProfilePage from '../../profiles/CustomerProfile/CustProContainer';
 import { ProfileFormPO } from '../../forms/CustomerProfileForm';
 import AddPetForm from '../../forms/PetForm/AddPetForm';
@@ -10,9 +24,12 @@ import FileUpload from '../../common/FileUpload';
 import { CustomersContext } from '../../../state/contexts/CustomersContext';
 import { APIContext } from '../../../state/contexts/APIContext';
 import { useOktaAuth } from '@okta/okta-react';
+import { GroomersContext } from '../../../state/contexts/GroomersContext';
+
+import { SmileOutlined } from '@ant-design/icons';
 
 const { TabPane } = Tabs;
-
+const { Option } = Select;
 // this will need to be deleted and pet, setPet will be used instead once
 // hooked up
 const pet = {};
@@ -22,12 +39,68 @@ const CustTab = () => {
   // const [pet, setPet] = useState();
   const [mode] = useState('left');
   // context state
-  const { resultInfo } = useContext(FormContext);
+  const { resultInfo, target } = useContext(FormContext);
   const { custInfo, customerAppointments, customerFavorites } = useContext(
     CustomersContext
   );
-  const { getCustomerByID, getCustomerAppointments } = useContext(APIContext);
-  const { getCustomerFavorites } = useContext(APIContext);
+  const {
+    getCustomerByID,
+    getCustomerAppointments,
+    rescheduleCust,
+    getCustomerFavorites,
+    getGroomerServicesByID,
+    getCustAppointmentByTrans,
+  } = useContext(APIContext);
+  const { groomerServices } = useContext(GroomersContext);
+  const [click, setClick] = useState(0);
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const disablePastDates = current =>
+    current && current < moment().endOf('day');
+
+  const config = {
+    rules: [
+      {
+        type: 'object',
+        required: true,
+        message: 'Please select date and time',
+      },
+    ],
+  };
+
+  const submitNotification = () => {
+    notification.open({
+      message: "We've updated your appointment!",
+      description:
+        'Appointment status has been set to "pending", the groomer will review these changes',
+      icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+    });
+  };
+
+  const onFinish = fieldsValue => {
+    // Should format date value before submit.
+    const values = {
+      ...fieldsValue,
+      date: fieldsValue['date-picker'].format('YYYY-MM-DD'),
+      startTime: fieldsValue['time-picker'].format('HH:mm:ss'),
+      endTime: '23:59',
+      services: fieldsValue['service'],
+      transaction_id: target[0].transaction,
+      //       'cust-name': userInfo.name,
+      //       'cust-email': userInfo.email,
+      //       phone: fieldsValue['phone'],
+    };
+    setTimeout(function() {
+      setClick(+1);
+    }, 500);
+    rescheduleCust(authState, values);
+    setIsModalVisible(false);
+    submitNotification();
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   var month = [
     'Jan',
@@ -49,18 +122,16 @@ const CustTab = () => {
     getCustomerAppointments();
     getCustomerFavorites();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [click]);
 
   return (
-    console.log('Customer appointments state', customerAppointments),
-    (
-      <div>
-        <Tabs
-          defaultActiveKey="0"
-          tabPosition={mode}
-          style={{ height: '100%', marginLeft: '5%' }}
-        >
-          {/* <TabPane
+    <div>
+      <Tabs
+        defaultActiveKey="0"
+        tabPosition={mode}
+        style={{ height: '100%', marginLeft: '5%' }}
+      >
+        {/* <TabPane
             style={{ fontSize: '16px' }}
             tab={
               <span>
@@ -71,101 +142,129 @@ const CustTab = () => {
           >
             <Overview />
           </TabPane> */}
-          <TabPane
-            tab={
-              <span>
-                <i className="fas fa-paw"></i>
-                {` `}
-                {` My Info`}
-              </span>
-            }
-            key="1"
-          >
-            <Row justify={'center'} style={{ marginLeft: '-10%' }}>
-              <ProfileFormPO />
-            </Row>
-            <Row justify={'center'} style={{ height: '60px' }}>
-              {resultInfo.message !== null ? (
-                <Alert
-                  message={resultInfo.message}
-                  type={resultInfo.type}
-                  showIcon
-                  style={{ marginTop: '20px', height: '40px' }}
-                />
-              ) : null}
-            </Row>
-            <div style={{ marginTop: '-8%', marginLeft: '-10%' }}>
-              <CustomerProfilePage />
-            </div>
-          </TabPane>
-          <TabPane
-            tab={
-              <span>
-                <i className="fas fa-paw"></i> My Pets
-              </span>
-            }
-            key="2"
-          >
-            {/* Pet form is placed inside a row component for easy center
+        <TabPane
+          tab={
+            <span>
+              <i className="fas fa-paw"></i>
+              {` `}
+              {` My Info`}
+            </span>
+          }
+          key="1"
+        >
+          <Row justify={'center'} style={{ marginLeft: '-10%' }}>
+            <ProfileFormPO />
+          </Row>
+          <Row justify={'center'} style={{ height: '60px' }}>
+            {resultInfo.message !== null ? (
+              <Alert
+                message={resultInfo.message}
+                type={resultInfo.type}
+                showIcon
+                style={{ marginTop: '20px', height: '40px' }}
+              />
+            ) : null}
+          </Row>
+          <div style={{ marginTop: '-8%', marginLeft: '-10%' }}>
+            <CustomerProfilePage />
+          </div>
+        </TabPane>
+        <TabPane
+          tab={
+            <span>
+              <i className="fas fa-paw"></i> My Pets
+            </span>
+          }
+          key="2"
+        >
+          {/* Pet form is placed inside a row component for easy center
              alignment*/}
-            <Row justify={'center'}>
-              <AddPetForm />
-            </Row>
-            {/* These 2 components will eventually live on pet display
+          <Row justify={'center'}>
+            <AddPetForm />
+          </Row>
+          {/* These 2 components will eventually live on pet display
            component*/}
-            <Row justify={'center'}>
-              <h2 style={{ marginTop: '10px' }}>Upload Pet Image</h2>
-            </Row>
-            <Row justify={'center'}>
-              <FileUpload
-                /* logic will need to be added to get a pet from API for this
+          <Row justify={'center'}>
+            <h2 style={{ marginTop: '10px' }}>Upload Pet Image</h2>
+          </Row>
+          <Row justify={'center'}>
+            <FileUpload
+              /* logic will need to be added to get a pet from API for this
                to be functional */
-                uploadUrl={`pets/image-upload/${pet && pet.id}?customer_id=${
-                  custInfo.user_id
-                }`}
-              />
-            </Row>
-            <Row justify={'center'}>
-              <h2 style={{ marginTop: '10px' }}>
-                Upload Pet Vaccination Image
-              </h2>
-            </Row>
-            <Row justify={'center'}>
-              <FileUpload
-                /* logic will need to be added to get a pet from API for this
+              uploadUrl={`pets/image-upload/${pet && pet.id}?customer_id=${
+                custInfo.user_id
+              }`}
+            />
+          </Row>
+          <Row justify={'center'}>
+            <h2 style={{ marginTop: '10px' }}>Upload Pet Vaccination Image</h2>
+          </Row>
+          <Row justify={'center'}>
+            <FileUpload
+              /* logic will need to be added to get a pet from API for this
                to be functional */
-                uploadUrl={`pets/vaccination-upload/${pet &&
-                  pet.id}?customer_id=${custInfo.user_id}`}
-              />
-            </Row>
-          </TabPane>
+              uploadUrl={`pets/vaccination-upload/${pet &&
+                pet.id}?customer_id=${custInfo.user_id}`}
+            />
+          </Row>
+        </TabPane>
 
-          <TabPane
-            tab={
-              <span>
-                <i className="fas fa-paw"></i> Appointments
-              </span>
-            }
-            key="3"
+        <TabPane
+          tab={
+            <span>
+              <i className="fas fa-paw"></i> Appointments
+            </span>
+          }
+          key="3"
+        >
+          <div style={{ width: '100%', display: 'flex', textAlign: 'center' }}>
+            <h2 style={{ width: '100%' }}>Upcoming Appointments</h2>
+          </div>
+
+          <br />
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              width: '100%',
+              flexWrap: 'wrap',
+            }}
           >
-            <h2 style={{ margin: '2%' }}>Upcoming Appointments:</h2>
-            <br />
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                width: '100%',
-                flexWrap: 'wrap',
-              }}
-            >
-              {customerAppointments !== undefined ? (
-                customerAppointments.map(info => {
-                  return (
-                    <div key={info.transaction} style={{ margin: '2%' }}>
+            {customerAppointments !== undefined ? (
+              customerAppointments.map(info => {
+                return (
+                  <div key={info.transaction} style={{ margin: '2%' }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        backgroundColor: 'black',
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: 'flex',
+                          width: '100%',
+                          height: '2.75rem',
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          padding: '.5rem',
+                        }}
+                      >
+                        <p
+                          style={{
+                            color: 'white',
+                            height: '1.70rem',
+                            fontSize: '1.5rem',
+                          }}
+                          className="card-title"
+                        >{`${info.business_name}`}</p>
+                        <p
+                          style={{ color: 'white' }}
+                        >{`${info.confirmation}`}</p>
+                      </div>
                       <Card
                         hoverable
-                        title={`${info.business_name}`}
-                        extra={`${info.confirmation}`}
                         style={{ width: 375, border: 'solid 0.8px black' }}
                       >
                         <h3>Certified Groomer:</h3>
@@ -215,11 +314,21 @@ const CustTab = () => {
                             : info.startTime.slice(0, 5) + 'PM'}{' '}
                         </p>
                         <h3 style={{ marginTop: '2%' }}>Services:</h3>
-                        <p>
+                        <div>
                           {info.cart.map(data => {
-                            return data;
+                            return (
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  justifyContent: 'space-between',
+                                }}
+                                key={data.id}
+                              >
+                                {data}
+                              </div>
+                            );
                           })}
-                        </p>
+                        </div>
                         <h3 style={{ marginTop: '2%' }}>Contact:</h3>
                         <h4
                           style={{ marginBottom: '-2%', fontStyle: 'italic' }}
@@ -243,48 +352,172 @@ const CustTab = () => {
                           {info.phone_number}
                         </a>
                         <p></p>
-                        <button style={{ pattingTop: '8%' }}>Reschedule</button>
+                        <Button
+                          style={{ pattingTop: '8%' }}
+                          onClick={() => {
+                            let id = info.groom_id;
+                            let crosshair = info.transaction;
+                            getCustAppointmentByTrans(crosshair);
+                            setIsModalVisible(true);
+                            getGroomerServicesByID(id);
+                          }}
+                        >
+                          {' '}
+                          Change{' '}
+                        </Button>
                         <button>Cancel</button>
+                        {target !== undefined ? (
+                          <Modal
+                            closable={false}
+                            footer={null}
+                            title="Make changes to the selected appointment"
+                            visible={isModalVisible}
+                          >
+                            <Form
+                              name="time_related_controls"
+                              onFinish={onFinish}
+                            >
+                              <Form.Item
+                                name="date-picker"
+                                label="Date"
+                                {...config}
+                              >
+                                <DatePicker
+                                  disabledDate={current =>
+                                    disablePastDates(current)
+                                  }
+                                />
+                              </Form.Item>
+
+                              <Form.Item
+                                name="time-picker"
+                                label="Time"
+                                {...config}
+                              >
+                                <TimePicker use12Hours format="h:mm a" />
+                              </Form.Item>
+
+                              <Form.Item
+                                name="phone"
+                                label="Phone Number"
+                                rules={[
+                                  {
+                                    required: true,
+                                    message: 'Please input your phone number',
+                                  },
+                                ]}
+                              >
+                                <Input
+                                  style={{
+                                    width: '100%',
+                                  }}
+                                />
+                              </Form.Item>
+
+                              <Form.Item
+                                name="service"
+                                label="Service"
+                                hasFeedback
+                                rules={[
+                                  {
+                                    required: true,
+                                    message: 'Please select service',
+                                  },
+                                ]}
+                              >
+                                <Select
+                                  placeholder="Please select services"
+                                  mode="multiple"
+                                >
+                                  {groomerServices.map(service => {
+                                    return (
+                                      <Option
+                                        key={service.id}
+                                        value={service.id}
+                                      >
+                                        {service.service_name}, $
+                                        {service.services_price}
+                                      </Option>
+                                    );
+                                  })}
+                                </Select>
+                              </Form.Item>
+
+                              <Form.Item
+                                wrapperCol={{
+                                  xs: {
+                                    span: 24,
+                                    offset: 0,
+                                  },
+                                  sm: {
+                                    span: 16,
+                                    offset: 8,
+                                  },
+                                }}
+                              ></Form.Item>
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  justifyContent: 'space-around',
+                                  width: '100%',
+                                }}
+                              >
+                                <Button onClick={handleCancel} type="danger">
+                                  Cancel
+                                </Button>
+                                <Button
+                                  type="primary"
+                                  htmlType="submit"
+                                  style={{ alignSelf: 'center' }}
+                                >
+                                  Submit
+                                </Button>
+                              </div>
+                            </Form>
+                          </Modal>
+                        ) : (
+                          ''
+                        )}
                       </Card>
                     </div>
-                  );
-                })
-              ) : (
-                <p>No Appointments</p>
-              )}
-            </div>
-          </TabPane>
-          <TabPane
-            tab={
-              <span>
-                <i className="fas fa-paw"></i> Favorite Groomers
-              </span>
-            }
-            key="4"
-          >
-            <div className="Favorite-Groomers">
-              <h1>Favorite Groomers</h1>
-              {customerFavorites !== undefined ? (
-                customerFavorites.map(info => {
-                  return (
-                    <div key={info.transaction()} style={{ margin: '2%' }}>
-                      <Card
-                        hoverable
-                        title={`${info.business_name}`}
-                        style={{ width: 375, border: 'solid 0.8px black' }}
-                      ></Card>
-                      <button>Remove</button>
-                    </div>
-                  );
-                })
-              ) : (
-                <p>No Favorites</p>
-              )}
-            </div>
-          </TabPane>
-        </Tabs>
-      </div>
-    )
+                  </div>
+                );
+              })
+            ) : (
+              <p>No Appointments</p>
+            )}
+          </div>
+        </TabPane>
+        <TabPane
+          tab={
+            <span>
+              <i className="fas fa-paw"></i> Favorite Groomers
+            </span>
+          }
+          key="4"
+        >
+          <div className="Favorite-Groomers">
+            <h1>Favorite Groomers</h1>
+            {customerFavorites !== undefined ? (
+              customerFavorites.map(info => {
+                return (
+                  <div key={info.transaction()} style={{ margin: '2%' }}>
+                    <Card
+                      hoverable
+                      title={`${info.business_name}`}
+                      style={{ width: 375, border: 'solid 0.8px black' }}
+                    ></Card>
+                    <button>Remove</button>
+                  </div>
+                );
+              })
+            ) : (
+              <p>No Favorites</p>
+            )}
+          </div>
+        </TabPane>
+      </Tabs>
+    </div>
   );
 };
 

@@ -30,6 +30,7 @@ const ApptModal = props => {
           Schedule Appointment!
         </Button>
         <Modal
+          footer={null}
           title="Schedule Appointment"
           visible={isModalVisible}
           onOk={handleOk}
