@@ -1,3 +1,4 @@
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Alert,
   Row,
@@ -12,12 +13,13 @@ import {
   DatePicker,
   notification,
 } from 'antd';
-import React, { useContext, useEffect, useState } from 'react';
-// import Overview from './overview';
+
 import moment from 'moment';
+import { SmileOutlined, FrownOutlined } from '@ant-design/icons';
 import CustomerProfilePage from '../../profiles/CustomerProfile/CustProContainer';
 import { ProfileFormPO } from '../../forms/CustomerProfileForm';
 import AddPetForm from '../../forms/PetForm/AddPetForm';
+
 // context imports
 import { FormContext } from '../../../state/contexts/FormContext';
 import FileUpload from '../../common/FileUpload';
@@ -26,17 +28,12 @@ import { APIContext } from '../../../state/contexts/APIContext';
 import { useOktaAuth } from '@okta/okta-react';
 import { GroomersContext } from '../../../state/contexts/GroomersContext';
 
-import { SmileOutlined } from '@ant-design/icons';
-
 const { TabPane } = Tabs;
 const { Option } = Select;
-// this will need to be deleted and pet, setPet will be used instead once
-// hooked up
 const pet = {};
 
 const CustTab = () => {
   const { authState } = useOktaAuth();
-  // const [pet, setPet] = useState();
   const [mode] = useState('left');
   // context state
   const { resultInfo, target } = useContext(FormContext);
@@ -50,6 +47,7 @@ const CustTab = () => {
     getCustomerFavorites,
     getGroomerServicesByID,
     getCustAppointmentByTrans,
+    editCustomerAppointmentConfirmation,
   } = useContext(APIContext);
   const { groomerServices } = useContext(GroomersContext);
   const [click, setClick] = useState(0);
@@ -77,6 +75,15 @@ const CustTab = () => {
     });
   };
 
+  const cancelNotification = () => {
+    notification.open({
+      message: 'Appointment canceled!',
+      description:
+        'Appointment status has been set to "canceled", fell free to change this',
+      icon: <FrownOutlined style={{ color: '#108ee9' }} />,
+    });
+  };
+
   const onFinish = fieldsValue => {
     // Should format date value before submit.
     const values = {
@@ -90,16 +97,19 @@ const CustTab = () => {
       //       'cust-email': userInfo.email,
       //       phone: fieldsValue['phone'],
     };
-    setTimeout(function() {
-      setClick(+1);
-    }, 500);
     rescheduleCust(authState, values);
     setIsModalVisible(false);
     submitNotification();
+    setTimeout(function() {
+      setClick(click => click + 1);
+    }, 1000);
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    setTimeout(function() {
+      setClick(click => click + 1);
+    }, 1000);
   };
 
   var month = [
@@ -232,6 +242,10 @@ const CustTab = () => {
           >
             {customerAppointments !== undefined ? (
               customerAppointments.map(info => {
+                let canceled = {
+                  confirmation: 'canceled',
+                  transaction_id: info.transaction,
+                };
                 return (
                   <div key={info.transaction} style={{ margin: '2%' }}>
                     <div
@@ -313,22 +327,28 @@ const CustTab = () => {
                               'PM'
                             : info.startTime.slice(0, 5) + 'PM'}{' '}
                         </p>
-                        <h3 style={{ marginTop: '2%' }}>Services:</h3>
-                        <div>
-                          {info.cart.map(data => {
-                            return (
-                              <div
-                                style={{
-                                  display: 'flex',
-                                  justifyContent: 'space-between',
-                                }}
-                                key={data.id}
-                              >
-                                {data}
-                              </div>
-                            );
-                          })}
-                        </div>
+                        {info.confirmation !== 'canceled' ? (
+                          <div>
+                            <h3 style={{ marginTop: '2%' }}>Services:</h3>
+                            <p>
+                              {info.cart.map(data => {
+                                return (
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      justifyContent: 'space-between',
+                                    }}
+                                    key={data.id}
+                                  >
+                                    {data}
+                                  </div>
+                                );
+                              })}
+                            </p>
+                          </div>
+                        ) : (
+                          <div></div>
+                        )}
                         <h3 style={{ marginTop: '2%' }}>Contact:</h3>
                         <h4
                           style={{ marginBottom: '-2%', fontStyle: 'italic' }}
@@ -353,7 +373,7 @@ const CustTab = () => {
                         </a>
                         <p></p>
                         <Button
-                          style={{ pattingTop: '8%' }}
+                          style={{ margin: '.5rem' }}
                           onClick={() => {
                             let id = info.groom_id;
                             let crosshair = info.transaction;
@@ -365,7 +385,24 @@ const CustTab = () => {
                           {' '}
                           Change{' '}
                         </Button>
-                        <button>Cancel</button>
+                        {info.confirmation !== 'canceled' ? (
+                          <Button
+                            style={{ margin: '.5rem' }}
+                            type="danger"
+                            onClick={() => {
+                              handleCancel();
+                              editCustomerAppointmentConfirmation(
+                                authState,
+                                canceled
+                              );
+                              cancelNotification();
+                            }}
+                          >
+                            Cancel Appointment
+                          </Button>
+                        ) : (
+                          <div></div>
+                        )}
                         {target !== undefined ? (
                           <Modal
                             closable={false}
@@ -454,7 +491,7 @@ const CustTab = () => {
                                     offset: 8,
                                   },
                                 }}
-                              ></Form.Item>
+                              />
                               <div
                                 style={{
                                   display: 'flex',
@@ -462,9 +499,7 @@ const CustTab = () => {
                                   width: '100%',
                                 }}
                               >
-                                <Button onClick={handleCancel} type="danger">
-                                  Cancel
-                                </Button>
+                                <Button onClick={handleCancel}>Cancel</Button>
                                 <Button
                                   type="primary"
                                   htmlType="submit"

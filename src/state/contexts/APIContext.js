@@ -314,6 +314,21 @@ const APIProvider = ({ children }) => {
       });
   };
 
+  const postRating = (pathway, payload) => {
+    return axios
+      .post(
+        `${process.env.REACT_APP_API_URI}/groomers/${pathway}/ratings/${userInfo.sub}`,
+        payload
+      )
+      .then(res => {
+        console.log(payload);
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   const getGroomerRatingAverageByID = pathway => {
     return axios
       .get(
@@ -357,13 +372,13 @@ const APIProvider = ({ children }) => {
       });
   };
 
-  const rescheduleCust = (authState, payload) => {
+  const rescheduleCust = (authState, values) => {
     const headers = getAuthHeader(authState);
 
     return axios
       .put(
         `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerSchedule/confirm`,
-        payload,
+        values,
         { headers }
       )
       .then(res => {
@@ -401,6 +416,22 @@ const APIProvider = ({ children }) => {
       })
       .catch(err => {
         console.log(err);
+      });
+  };
+
+  const editCustomerAppointmentConfirmation = (authState, confirmation) => {
+    const headers = getAuthHeader(authState);
+    return axios
+      .put(
+        `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerSchedule/confirm`,
+        confirmation,
+        { headers }
+      )
+      .then(res => {
+        console.log('Successful appointment confirmation', res);
+      })
+      .catch(err => {
+        console.log('Failed appointment confirmation', err);
       });
   };
 
@@ -545,6 +576,7 @@ const APIProvider = ({ children }) => {
         getGroomerRatingAverageByID,
         getGroomerRatingCountByID,
         postAppointment,
+        postRating,
         getCustomerAppointments,
         getCustAppointmentByTrans,
         getGroomerAppointments,
@@ -552,6 +584,7 @@ const APIProvider = ({ children }) => {
         postFavorite,
         editGroomerAppointmentConfirmation,
         rescheduleCust,
+        editCustomerAppointmentConfirmation,
       }}
     >
       {children}
