@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Alert, Col, Form, Row, Tabs, Card } from 'antd';
+import { Alert, Col, Form, Row, Tabs, Card, Button } from 'antd';
 // import Overview from './overview';
 import GroomerProfilePage from '../../profiles/GroomerProfile/GroomerProfilePage';
 import RenderFormGR from '../../forms/GroomerProfileForm/RenderFormGR';
@@ -17,9 +17,15 @@ const GroomerTab = () => {
   const { authState } = useOktaAuth();
   const { resultInfo } = useContext(FormContext);
   const { groomerInfo, groomerAppointments } = useContext(GroomersContext);
-  const { getGroomerByID, getGroomerAppointments } = useContext(APIContext);
+  const {
+    getGroomerByID,
+    getGroomerAppointments,
+    editGroomerAppointmentConfirmation,
+  } = useContext(APIContext);
 
   const [mode] = useState('left');
+
+  const [click, setClick] = useState(0);
 
   var month = [
     'Jan',
@@ -36,11 +42,26 @@ const GroomerTab = () => {
     'Dec',
   ];
 
+  // const editConfirmation = async service => {
+  //   await editGroomerAppointmentConfirmation(authState);
+  // };
+
   useEffect(() => {
     getGroomerByID(authState);
     getGroomerAppointments();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [click]);
+
+  // useEffect(() => {
+
+  //   getGroomerAppointments();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
+  // const confirmClick = (e) => {
+  //   e.preventDefault();
+  //   getGroomerAppointments();
+  // }
 
   return (
     console.log('Groomer appointments state', groomerAppointments),
@@ -142,11 +163,22 @@ const GroomerTab = () => {
             >
               {groomerAppointments !== undefined ? (
                 groomerAppointments.map(info => {
+                  let accepted = {
+                    confirmation: 'accepted',
+                    transaction_id: info.transaction,
+                  };
+                  let declined = {
+                    confirmation: 'declined',
+                    transaction_id: info.transaction,
+                  };
+
                   return (
-                    <div key={Date.now()} style={{ margin: '2%' }}>
+                    <div key={info.transaction} style={{ margin: '2%' }}>
                       <Card
                         hoverable
                         title={`${info.given_name} ${info.family_name}`}
+                        // Shows the status of the appointment and if it is pending, accepted, etc.
+                        extra={`${info.confirmation}`}
                         style={{ width: 300, border: 'solid 0.8px black' }}
                       >
                         <h3 style={{ marginTop: '2%' }}>Date:</h3>
@@ -184,12 +216,19 @@ const GroomerTab = () => {
                               'PM'
                             : info.startTime.slice(0, 5) + 'PM'}{' '}
                         </p>
-                        <h3 style={{ marginTop: '2%' }}>Services:</h3>
-                        <p>
-                          {info.cart.map(data => {
-                            return data;
-                          })}
-                        </p>
+                        {info.confirmation !== 'canceled' ? (
+                          <div>
+                            <h3 style={{ marginTop: '2%' }}>Services:</h3>
+                            <p>
+                              {info.cart.map(data => {
+                                return data;
+                              })}
+                            </p>
+                          </div>
+                        ) : (
+                          <div></div>
+                        )}
+
                         <h3 style={{ marginTop: '2%' }}>Address:</h3>
                         <p>{info.address}</p>
                         <p
@@ -213,16 +252,49 @@ const GroomerTab = () => {
                         </a>
                         <br />
                         <div style={{ paddingTop: '8%' }}>
-                          <button>Reschedule</button>
-                          <button>Accept</button>
-                          <button>Decline</button>
+                          {info.confirmation !== 'canceled' ? (
+                            <div>
+                              <Button>Reschedule</Button>
+                              <br />
+                              <br />
+                              <Button
+                                type="primary"
+                                onClick={() => {
+                                  editGroomerAppointmentConfirmation(
+                                    authState,
+                                    accepted
+                                  );
+                                  setClick(click + 1);
+                                }}
+                              >
+                                Accept
+                              </Button>
+                              <Button
+                                type="primary"
+                                danger
+                                onClick={() => {
+                                  editGroomerAppointmentConfirmation(
+                                    authState,
+                                    declined
+                                  );
+                                  setClick(click + 1);
+                                }}
+                              >
+                                Decline
+                              </Button>{' '}
+                            </div>
+                          ) : (
+                            <div></div>
+                          )}
                         </div>
                       </Card>
                     </div>
                   );
                 })
               ) : (
-                <p>No Appointments</p>
+                <div>
+                  <p>No Appointments</p>
+                </div>
               )}
             </div>
           </TabPane>

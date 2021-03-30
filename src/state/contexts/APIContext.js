@@ -14,7 +14,11 @@ export const APIContext = createContext({});
 const APIProvider = ({ children }) => {
   const history = useHistory();
   const { userInfo, setIsRegistered } = useContext(UsersContext);
-  const { setCustInfo, setCustomerAppointments } = useContext(CustomersContext);
+  const {
+    setCustInfo,
+    setCustomerAppointments,
+    setCustomerFavorites,
+  } = useContext(CustomersContext);
 
   const {
     setGroomerInfo,
@@ -27,7 +31,6 @@ const APIProvider = ({ children }) => {
     setRatingAverage,
     setRatingCount,
     setGroomerAppointments,
-    setCustomerFavorites,
   } = useContext(GroomersContext);
   const {
     setIsEditing,
@@ -312,6 +315,21 @@ const APIProvider = ({ children }) => {
       });
   };
 
+  const postRating = (pathway, payload) => {
+    return axios
+      .post(
+        `${process.env.REACT_APP_API_URI}/groomers/${pathway}/ratings/${userInfo.sub}`,
+        payload
+      )
+      .then(res => {
+        console.log(payload);
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   const getGroomerRatingAverageByID = pathway => {
     return axios
       .get(
@@ -372,6 +390,22 @@ const APIProvider = ({ children }) => {
       });
   };
 
+  const editCustomerAppointmentConfirmation = (authState, confirmation) => {
+    const headers = getAuthHeader(authState);
+    return axios
+      .put(
+        `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerSchedule/confirm`,
+        confirmation,
+        { headers }
+      )
+      .then(res => {
+        console.log('Successful appointment confirmation', res);
+      })
+      .catch(err => {
+        console.log('Failed appointment confirmation', err);
+      });
+  };
+
   const getGroomerAppointments = () => {
     return axios
       .get(
@@ -389,13 +423,28 @@ const APIProvider = ({ children }) => {
       });
   };
 
-  //Favoriting Groomers
-  const postCustomerFavorite = (authState, pathway) => {
+  const editGroomerAppointmentConfirmation = (authState, confirmation) => {
     const headers = getAuthHeader(authState);
+    return axios
+      .put(
+        `${process.env.REACT_APP_API_URI}/groomers/${userInfo.sub}/groomerSchedule/confirm`,
+        confirmation,
+        { headers }
+      )
+      .then(res => {
+        console.log('Successful appointment confirmation', res);
+      })
+      .catch(err => {
+        console.log('Failed appointment confirmation', err);
+      });
+  };
+
+  //Favoriting Groomers
+  const postFavorite = pathway => {
     return axios
       .post(
         `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/favorites/${pathway}`,
-        { headers }
+        { pathway }
       )
       .then(res => {
         console.log('Successful favorite posting', res);
@@ -412,8 +461,8 @@ const APIProvider = ({ children }) => {
       )
       .then(res => {
         if (res.data) {
-          setCustomerFavorites(res.data);
-          console.log(res.data);
+          console.log(res.data.data);
+          setCustomerFavorites(res.data.data);
         }
       })
       .catch(err => {
@@ -465,10 +514,13 @@ const APIProvider = ({ children }) => {
         getGroomerRatingAverageByID,
         getGroomerRatingCountByID,
         postAppointment,
+        postRating,
         getCustomerAppointments,
         getGroomerAppointments,
         getCustomerFavorites,
-        postCustomerFavorite,
+        postFavorite,
+        editGroomerAppointmentConfirmation,
+        editCustomerAppointmentConfirmation,
       }}
     >
       {children}
