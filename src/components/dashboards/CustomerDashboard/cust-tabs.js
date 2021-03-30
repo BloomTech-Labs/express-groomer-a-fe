@@ -177,7 +177,6 @@ const CustTab = () => {
                         {month[info.date.slice(5, 7) - 1]},{' '}
                         {info.date.slice(0, 4)}
                       </p>
-
                       <h4
                         style={{
                           marginTop: '2%',
@@ -294,6 +293,7 @@ const CustTab = () => {
         </TabPane>
       </Tabs>
     </div>
+
   );
 };
 
