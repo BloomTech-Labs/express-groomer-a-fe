@@ -243,6 +243,7 @@ const CustTab = () => {
             {customerAppointments !== undefined ? (
               customerAppointments.map(info => {
                 let canceled = {
+                  services: [info.services],
                   confirmation: 'canceled',
                   transaction_id: info.transaction,
                 };
@@ -330,21 +331,21 @@ const CustTab = () => {
                         {info.confirmation !== 'canceled' ? (
                           <div>
                             <h3 style={{ marginTop: '2%' }}>Services:</h3>
-                            <p>
+                            <div>
                               {info.cart.map(data => {
                                 return (
                                   <div
+                                    key={data.id}
                                     style={{
                                       display: 'flex',
                                       justifyContent: 'space-between',
                                     }}
-                                    key={data.id}
                                   >
                                     {data}
                                   </div>
                                 );
                               })}
-                            </p>
+                            </div>
                           </div>
                         ) : (
                           <div></div>
@@ -405,6 +406,7 @@ const CustTab = () => {
                         )}
                         {target !== undefined ? (
                           <Modal
+                            key={target[0].transaction}
                             closable={false}
                             footer={null}
                             title="Make changes to the selected appointment"
