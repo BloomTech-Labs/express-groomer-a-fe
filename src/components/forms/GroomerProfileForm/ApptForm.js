@@ -95,7 +95,7 @@ const ApptForm = props => {
           },
         ]}
       >
-        <Select placeholder="Please select a service">
+        <Select placeholder="Please select a service" mode="multiple">
           {groomerServices.map(service => {
             return (
               <Option key={service.id} value={service.id}>

@@ -39,6 +39,7 @@ const APIProvider = ({ children }) => {
     setShowDelModal,
     setIsError,
     setResultInfo,
+    setTarget,
   } = useContext(FormContext);
 
   // we will define a bunch of API calls here.
@@ -61,6 +62,7 @@ const APIProvider = ({ children }) => {
     return axios
       .get(`${process.env.REACT_APP_API_URI}/groomer_services/${id}`)
       .then(res => {
+        console.log(res);
         setGroomerServices(res.data);
       })
       .catch(err => {
@@ -322,7 +324,6 @@ const APIProvider = ({ children }) => {
         payload
       )
       .then(res => {
-        console.log(payload);
         console.log(res);
       })
       .catch(err => {
@@ -373,6 +374,23 @@ const APIProvider = ({ children }) => {
       });
   };
 
+  const rescheduleCust = (authState, values) => {
+    const headers = getAuthHeader(authState);
+
+    return axios
+      .put(
+        `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerSchedule/confirm`,
+        values,
+        { headers }
+      )
+      .then(res => {
+        console.log('Updated', res);
+      })
+      .catch(err => {
+        console.log('Failed appointment posting', err);
+      });
+  };
+
   const getCustomerAppointments = () => {
     return axios
       .get(
@@ -384,6 +402,19 @@ const APIProvider = ({ children }) => {
           setCustomerAppointments(res.data);
           console.log(res.data);
         }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const getCustAppointmentByTrans = crosshair => {
+    return axios
+      .get(
+        `${process.env.REACT_APP_API_URI}/customers/${userInfo.sub}/customerSchedule/locate/${crosshair}`
+      )
+      .then(res => {
+        setTarget(res.data);
       })
       .catch(err => {
         console.log(err);
@@ -518,10 +549,12 @@ const APIProvider = ({ children }) => {
         postAppointment,
         postRating,
         getCustomerAppointments,
+        getCustAppointmentByTrans,
         getGroomerAppointments,
         getCustomerFavorites,
         postFavorite,
         editGroomerAppointmentConfirmation,
+        rescheduleCust,
         editCustomerAppointmentConfirmation,
       }}
     >
