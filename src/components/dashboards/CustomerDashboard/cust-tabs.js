@@ -23,16 +23,17 @@ const CustTab = () => {
   const [mode] = useState('left');
   // context state
   const { resultInfo } = useContext(FormContext);
-  const { custInfo, customerAppointments, customerFavorites } = useContext(CustomersContext);
+  const { custInfo, customerAppointments, customerFavorites } = useContext(
+    CustomersContext
+  );
   const {
     getCustomerByID,
     getCustomerAppointments,
     editCustomerAppointmentConfirmation,
-    getCustomerFavorites
+    getCustomerFavorites,
   } = useContext(APIContext);
 
   const [click, setClick] = useState(0);
-
 
   var month = [
     'Jan',
@@ -299,22 +300,30 @@ const CustTab = () => {
           >
             <div className="Favorite-Groomers">
               <h1>Favorite Groomers</h1>
-              {customerFavorites !== undefined ? (
-                customerFavorites.map(info => {
-                  return (
-                    <div key={info.transaction()} style={{ margin: '2%' }}>
-                      <Card
-                        hoverable
-                        title={`${info.business_name}`}
-                        style={{ width: 375, border: 'solid 0.8px black' }}
-                      ></Card>
-                      <button>Remove</button>
-                    </div>
-                  );
-                })
-              ) : (
-                <p>No Favorites</p>
-              )}
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  width: '100%',
+                  flexWrap: 'wrap',
+                }}
+              >
+                {customerFavorites !== undefined ? (
+                  customerFavorites.map(info => {
+                    return (
+                      <div key={info.id} style={{ margin: '2%' }}>
+                        <Card
+                          hoverable
+                          title={`${info.business_name}`}
+                          style={{ width: 150, border: 'solid 0.8px black' }}
+                        ></Card>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <p>No Favorites</p>
+                )}
+              </div>
             </div>
           </TabPane>
         </Tabs>

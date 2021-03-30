@@ -18,16 +18,20 @@ import './GroomerPublicProfile.scss';
 import { GroomersContext } from '../../../state/contexts/GroomersContext';
 import { APIContext } from '../../../state/contexts/APIContext';
 import ApptModal from '../../forms/GroomerProfileForm/ApptModal';
+import { useOktaAuth } from '@okta/okta-react';
 
 const GroomerPublicProfile = props => {
   const pathway = props.props.match.params.id;
   // context state
   const { groomer, ratingAverage } = useContext(GroomersContext);
+  const { authState } = useOktaAuth();
+
   const {
     getGroomerByID,
     getGroomerRatingAverageByID,
     getGroomerRatingCountByID,
     postRating,
+    postFavorite,
   } = useContext(APIContext);
 
   const { TextArea } = Input;
@@ -81,6 +85,7 @@ const GroomerPublicProfile = props => {
     getGroomerByID(pathway);
     getGroomerRatingAverageByID(pathway);
     getGroomerRatingCountByID(pathway);
+    postFavorite(authState, pathway);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathway]);
 
@@ -114,6 +119,13 @@ const GroomerPublicProfile = props => {
               {groomer.business_name}
             </p>
             <ApptModal props={props} />
+            <Button
+              onClick={() => {
+                postFavorite(groomer.user_id);
+              }}
+            >
+              Favorite this Groomer!
+            </Button>
             <div className="rating">
               <div>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
