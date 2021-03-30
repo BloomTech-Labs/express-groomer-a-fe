@@ -54,7 +54,7 @@ const GroomerPublicProfile = props => {
   const handleOk = () => {
     setIsModalVisible(false);
     if (payload.rate > 0) {
-      return postRating(pathway, payload), openNotification();
+      return (postRating(pathway, payload), openNotification())
     } else {
       return failedNotification();
     }
