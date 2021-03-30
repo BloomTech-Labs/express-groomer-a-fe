@@ -454,6 +454,7 @@ const APIProvider = ({ children }) => {
       });
   };
 
+
   const editGroomerAppointmentConfirmation = (authState, confirmation) => {
     const headers = getAuthHeader(authState);
     return axios
@@ -500,6 +501,7 @@ const APIProvider = ({ children }) => {
         console.log(err);
       });
   };
+
 
   /******************************************************************************
    *                      API calls for pets

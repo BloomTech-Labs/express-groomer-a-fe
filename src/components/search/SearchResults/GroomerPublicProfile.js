@@ -147,7 +147,6 @@ const GroomerPublicProfile = props => {
                   </Button>
                 </div>
                 <Modal
-                  title="Your review"
                   visible={isModalVisible}
                   onOk={handleOk}
                   onCancel={handleCancel}
@@ -242,9 +241,6 @@ const GroomerPublicProfile = props => {
                   </p>
                 </div>
               </div>
-              {/* <CalendlyPopupWidget
-                scheduleLink={groomer.personal_calendly_link}
-              /> */}
             </div>
           </div>
         </Layout.Content>

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+
 import {
   Alert,
   Row,
@@ -21,6 +22,7 @@ import { ProfileFormPO } from '../../forms/CustomerProfileForm';
 import AddPetForm from '../../forms/PetForm/AddPetForm';
 
 // context imports
+
 import { FormContext } from '../../../state/contexts/FormContext';
 import FileUpload from '../../common/FileUpload';
 import { CustomersContext } from '../../../state/contexts/CustomersContext';
@@ -141,17 +143,7 @@ const CustTab = () => {
         tabPosition={mode}
         style={{ height: '100%', marginLeft: '5%' }}
       >
-        {/* <TabPane
-            style={{ fontSize: '16px' }}
-            tab={
-              <span>
-                <i className="fas fa-paw"></i> Overview
-              </span>
-            }
-            key="0"
-          >
-            <Overview />
-          </TabPane> */}
+
         <TabPane
           tab={
             <span>
@@ -187,20 +179,14 @@ const CustTab = () => {
           }
           key="2"
         >
-          {/* Pet form is placed inside a row component for easy center
-             alignment*/}
           <Row justify={'center'}>
             <AddPetForm />
           </Row>
-          {/* These 2 components will eventually live on pet display
-           component*/}
           <Row justify={'center'}>
             <h2 style={{ marginTop: '10px' }}>Upload Pet Image</h2>
           </Row>
           <Row justify={'center'}>
             <FileUpload
-              /* logic will need to be added to get a pet from API for this
-               to be functional */
               uploadUrl={`pets/image-upload/${pet && pet.id}?customer_id=${
                 custInfo.user_id
               }`}
@@ -213,6 +199,7 @@ const CustTab = () => {
             <FileUpload
               /* logic will need to be added to get a pet from API for this
                to be functional */
+
               uploadUrl={`pets/vaccination-upload/${pet &&
                 pet.id}?customer_id=${custInfo.user_id}`}
             />
@@ -227,10 +214,10 @@ const CustTab = () => {
           }
           key="3"
         >
+
           <div style={{ width: '100%', display: 'flex', textAlign: 'center' }}>
             <h2 style={{ width: '100%' }}>Upcoming Appointments</h2>
           </div>
-
           <br />
           <div
             style={{
@@ -298,13 +285,127 @@ const CustTab = () => {
                         >
                           Day
                         </h4>
-
-                        <p>
-                          {info.date.slice(8, 10)}{' '}
-                          {month[info.date.slice(5, 7) - 1]},{' '}
-                          {info.date.slice(0, 4)}
-                        </p>
-
+                      <p>
+                        {info.date.slice(8, 10)}{' '}
+                        {month[info.date.slice(5, 7) - 1]},{' '}
+                        {info.date.slice(0, 4)}
+                      </p>
+                      <h4
+                        style={{
+                          marginTop: '2%',
+                          marginBottom: '-1%',
+                          fontStyle: 'italic',
+                        }}
+                      >
+                        Time
+                      </h4>
+                      <p>
+                        {info.startTime.slice(0, 2) === 12
+                          ? info.startTime.slice(0, 5) + 'PM'
+                          : info.startTime.slice(0, 2) < 12
+                          ? info.startTime.slice(0, 5) + 'AM'
+                          : info.startTime.slice(0, 2) > 12
+                          ? info.startTime.slice(0, 2) -
+                            12 +
+                            ':' +
+                            info.startTime.slice(3, 5) +
+                            'PM'
+                          : info.startTime.slice(0, 5) + 'PM'}{' '}
+                      </p>
+                      {info.confirmation !== 'canceled' ? (
+                        <div>
+                          <h3 style={{ marginTop: '2%' }}>Services:</h3>
+                          <p>
+                            {info.cart.map(data => {
+                              return data;
+                            })}
+                          </p>
+                        </div>
+                      ) : (
+                        <div></div>
+                      )}
+                      <h3 style={{ marginTop: '2%' }}>Contact:</h3>
+                      <h4 style={{ marginBottom: '-2%', fontStyle: 'italic' }}>
+                        Email
+                      </h4>
+                      <a href={`mailto:${info.email}`}> {info.email}</a>
+                      <h4
+                        style={{
+                          marginTop: '2%',
+                          marginBottom: '-2%',
+                          fontStyle: 'italic',
+                        }}
+                      >
+                        Phone Number
+                      </h4>
+                      <a
+                        href={`tel:${info.phone_number}`}
+                        style={{ marginTop: '0%' }}
+                      >
+                        {info.phone_number}
+                      </a>
+                      <p></p>
+                      {info.confirmation !== 'canceled' ? (
+                        <div>
+                          <Button style={{ pattingTop: '8%' }}>
+                            Reschedule
+                          </Button>
+                          <Button
+                            type="primary"
+                            danger
+                            onClick={() => {
+                              editCustomerAppointmentConfirmation(
+                                authState,
+                                canceled
+                              );
+                              setClick(click + 1);
+                            }}
+                          >
+                            Cancel
+                          </Button>{' '}
+                        </div>
+                      ) : (
+                        <div></div>
+                      )}
+                    </Card>
+                  </div>
+                );
+              })
+            ) : (
+              <p>No Appointments</p>
+            )}
+          </div>
+        </TabPane>
+        <TabPane
+          tab={
+            <span>
+              <i className="fas fa-paw"></i> Favorite Groomers
+            </span>
+          }
+          key="4"
+        >
+          <div className="Favorite-Groomers">
+            <h1>Favorite Groomers</h1>
+            {customerFavorites !== undefined ? (
+              customerFavorites.map(info => {
+                return (
+                  <div key={info.transaction()} style={{ margin: '2%' }}>
+                    <Card
+                      hoverable
+                      title={`${info.business_name}`}
+                      style={{ width: 375, border: 'solid 0.8px black' }}
+                    ></Card>
+                    <button>Remove</button>
+                  </div>
+                );
+              })
+            ) : (
+              <p>No Favorites</p>
+            )}
+          </div>
+        </TabPane>
+      </Tabs>
+    </div>
                         <h4
                           style={{
                             marginTop: '2%',

@@ -9,9 +9,7 @@ import { RootProvider } from './state/contexts/RootContext';
 ReactDOM.render(
   <Router>
     <RootProvider>
-      {/* <React.StrictMode> */}
       <App />
-      {/* </React.StrictMode> */}
     </RootProvider>
   </Router>,
   document.getElementById('root')

@@ -23,7 +23,6 @@ const ApptForm = props => {
   const { groomerServices } = useContext(GroomersContext);
   const pathway = props.props.props.props.match.params.id;
   const { postAppointment } = useContext(APIContext);
-  //   const { userInfo } = useContext(UsersContext);
 
   const onFinish = fieldsValue => {
     // Should format date value before submit.
@@ -33,12 +32,8 @@ const ApptForm = props => {
       startTime: fieldsValue['time-picker'].format('HH:mm:ss'),
       endTime: '23:59',
       services: [fieldsValue['service']],
-      //       'cust-name': userInfo.name,
-      //       'cust-email': userInfo.email,
-      //       phone: fieldsValue['phone'],
     };
     postAppointment(authState, pathway, values);
-    console.log('Received values of form: ', values);
   };
 
   const config = {
@@ -56,7 +51,6 @@ const ApptForm = props => {
       message: 'Success!',
       description: `Your appointment has been scheduled! `,
     });
-    console.log(props);
     props.closeModal();
   };
 
