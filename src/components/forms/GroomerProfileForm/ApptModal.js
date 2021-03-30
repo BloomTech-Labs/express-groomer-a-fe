@@ -23,22 +23,19 @@ const ApptModal = props => {
   };
 
   return (
-    console.log('Appointment model props', props),
-    (
-      <>
-        <Button id="appt-modal-button" type="primary" onClick={showModal}>
-          Schedule Appointment!
-        </Button>
-        <Modal
-          title="Schedule Appointment"
-          visible={isModalVisible}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        >
-          <ApptForm props={props} closeModal={closeModal} />
-        </Modal>
-      </>
-    )
+    <>
+      <Button id="appt-modal-button" type="primary" onClick={showModal}>
+        Schedule Appointment!
+      </Button>
+      <Modal
+        title="Schedule Appointment"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <ApptForm props={props} closeModal={closeModal} />
+      </Modal>
+    </>
   );
 };
 

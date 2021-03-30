@@ -56,8 +56,6 @@ function App() {
           path="/customer-dashboard"
           component={CustomerDashboardPage}
         />
-        {/*<SecureRoute path="/customer-profile" component={CustomerProfilePage} />*/}
-
         <Route component={NotFoundPage} />
       </Switch>
     </Security>
