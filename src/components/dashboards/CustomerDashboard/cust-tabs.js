@@ -538,7 +538,7 @@ const CustTab = () => {
             {customerFavorites !== undefined ? (
               customerFavorites.map(info => {
                 return (
-                  <div key={info.transaction()} style={{ margin: '2%' }}>
+                  <div key={info.id()} style={{ margin: '2%' }}>
                     <Card
                       hoverable
                       title={`${info.business_name}`}
