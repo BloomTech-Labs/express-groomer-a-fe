@@ -68,20 +68,13 @@ function NavBar() {
         </div>
 
         <nav className="nav-bar">
-          {/* <Link className="anchor" to="/info">
-            Info
-          </Link> */}
           <Link className="anchor" to="/groomer-dashboard">
             Dashboard
           </Link>
           <Link className="anchor" to="/Search">
             Search
           </Link>
-          <Button
-            // type="primary"
-            className={'anchor'}
-            onClick={() => authService.logout()}
-          >
+          <Button className={'anchor'} onClick={() => authService.logout()}>
             Logout
           </Button>
         </nav>
@@ -106,14 +99,7 @@ function NavBar() {
           <Link className="anchor" to="/Search">
             Search
           </Link>
-          {/* <Link className="anchor" to="/info">
-            Info
-          </Link> */}
-          <Button
-            // type="primary"
-            className={'anchor'}
-            onClick={() => authService.logout()}
-          >
+          <Button className={'anchor'} onClick={() => authService.logout()}>
             Logout
           </Button>
         </nav>
@@ -132,9 +118,6 @@ function NavBar() {
         </div>
 
         <div className="nav-bar">
-          {/* <Link className="anchor" to="/info">
-            Info
-          </Link> */}
           <Link className="anchor" to="/Search">
             Search
           </Link>

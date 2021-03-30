@@ -74,7 +74,6 @@ const RenderFormGR = () => {
     // TODO calculate lat & lng  from address and zip to add to the groomer info
     const address = `${values.address}+${values.zip_code}`;
     const latLng = await getLatLng(address);
-    console.log(latLng);
 
     setLoading(true);
     const hoursString = JSON.stringify(hours);

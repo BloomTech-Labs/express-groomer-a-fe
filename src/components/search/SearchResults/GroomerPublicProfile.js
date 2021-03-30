@@ -45,7 +45,6 @@ const GroomerPublicProfile = props => {
   const ratingChange = value => {
     setFollow(value);
     setPayload({ ...payload, rate: value });
-    console.log(payload);
   };
 
   const showModal = () => {
@@ -148,7 +147,6 @@ const GroomerPublicProfile = props => {
                   </Button>
                 </div>
                 <Modal
-                  title="Your review"
                   visible={isModalVisible}
                   onOk={handleOk}
                   onCancel={handleCancel}
@@ -167,7 +165,6 @@ const GroomerPublicProfile = props => {
                   <TextArea
                     onChange={e => {
                       setPayload({ ...payload, comment: e.target.value });
-                      console.log(payload);
                     }}
                     showCount
                     placeholder={'(Optional)'}
@@ -244,9 +241,6 @@ const GroomerPublicProfile = props => {
                   </p>
                 </div>
               </div>
-              {/* <CalendlyPopupWidget
-                scheduleLink={groomer.personal_calendly_link}
-              /> */}
             </div>
           </div>
         </Layout.Content>

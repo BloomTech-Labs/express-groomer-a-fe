@@ -28,7 +28,6 @@ const FormProvider = ({ children }) => {
     console.log('Failed:', errorInfo);
   };
   const onRadioChange = e => {
-    console.log('radio checked', e.target.value);
     setValue(e.target.value);
   };
   return (
